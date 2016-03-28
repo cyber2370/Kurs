@@ -15,15 +15,6 @@ namespace Kurs
         public Form1()
         {
             InitializeComponent();
-            BackColor = Color.White;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (this.BackColor != Color.Aquamarine)
-                this.BackColor = Color.Aquamarine;
-            else
-                this.BackColor = Color.White;
         }
     }
 }
