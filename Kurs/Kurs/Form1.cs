@@ -16,5 +16,13 @@ namespace Kurs
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (BackColor != Color.Red)
+                BackColor = Color.Red;
+            else
+                BackColor = Color.White;
+        }
     }
 }
