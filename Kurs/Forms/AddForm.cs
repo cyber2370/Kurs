@@ -8,21 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Kurs
+namespace Kurs.Forms
 {
-    public partial class Form1 : Form
+    public partial class AddForm : Form
     {
-        public Form1()
+        public AddForm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (BackColor != Color.Red)
-                BackColor = Color.Red;
-            else
-                BackColor = Color.White;
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
