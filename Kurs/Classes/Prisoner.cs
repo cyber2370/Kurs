@@ -14,13 +14,12 @@ namespace Kurs.Classes
     class Prisoner
     {
         string _name, _surname, _place, _relations, _article, _character;
-        DateTime _imprisonment, _term;
-        int _prisonCell, _ID;
+        int _prisonCell;
 
         public Prisoner()
         {
             _name = _surname = _place = _relations = _article = _character = "";
-            _prisonCell = _ID = 0;
+            _prisonCell = 0;
         }
 
         public string Name { get { return _name; } set { _name = value; } }
@@ -30,6 +29,5 @@ namespace Kurs.Classes
         public string Article { get { return _article; } set { _article = value; } }
         public string Character { get { return _character; } set { _character = value; } }
         public int PrisonCell { get { return _prisonCell; } set { _prisonCell = value; } }
-        public int ID { get { return _ID; } set { _ID = value; } }
     }
 }

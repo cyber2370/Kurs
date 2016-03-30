@@ -3,79 +3,164 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Kurs.Classes
 {
-    class DataBase
+    static class DataBase
     {
         private static XmlDocument xDoc;
         private static XmlElement xRoot;
-        private static string xPath;
+        public static string xPath = "data/prisoners2.xml";
+        public static Dictionary<string, string> dict;
+        
         static DataBase()
         {
-            xPath = "data/prisoners1.xml";
-            xDoc = new XmlDocument();
-            xDoc.Load(xPath);
-            xRoot = xDoc.DocumentElement;
-
+            dict = new Dictionary<string, string>();
+            dict.Add("id", "ID");
+            dict.Add("name", "Имя");
+            dict.Add("surname", "Фамилия");
+            dict.Add("place", "Место в иерархии");
+            dict.Add("relations", "Семейные отношения");
+            dict.Add("article", "Статья");
+            dict.Add("character", "Особенности характера");
         }
 
         public static void deletePrisoner(int id)
         {
+            xDoc = new XmlDocument();
+            xDoc.Load(xPath);
+            xRoot = xDoc.DocumentElement;
+
             XmlNode node = xRoot.SelectSingleNode("prisoner[@id='" + id.ToString() + "']");
             if (node != null)
                 xRoot.RemoveChild(node);
             xDoc.Save(xPath);
         }
 
-
-        public static void addPrisoner()
+        public static void addPrisoner(Prisoner prisoner)
         {
-
-            XmlElement prisonerElem = xDoc.CreateElement("prisoner");
-
-            prisonerElem.Attributes.Append(xDoc.CreateAttribute("id")).AppendChild(xDoc.CreateTextNode("1"));
-            xDoc.CreateElement("name").AppendChild(xDoc.CreateTextNode("name1"));
-            xDoc.CreateElement("surname").AppendChild(xDoc.CreateTextNode("surname1"));
-            xDoc.CreateElement("place").AppendChild(xDoc.CreateTextNode("prison1"));
-            xDoc.CreateElement("relations").AppendChild(xDoc.CreateTextNode("Mom, Dad, Brother"));
-            xDoc.CreateElement("article").AppendChild(xDoc.CreateTextNode("Criminal article1"));
-            xDoc.CreateElement("character").AppendChild(xDoc.CreateTextNode("cute1"));
-
-            xRoot.AppendChild(prisonerElem);
+            XDocument xDoc = XDocument.Load(xPath);
+            XElement xtmp = new XElement("prisoner",
+                new XAttribute("id", (Convert.ToInt32(xDoc.Root.Elements().Last().Attribute("id").Value) + 1).ToString()),
+                new XElement("name", prisoner.Name),
+                new XElement("surname", prisoner.Surname),
+                new XElement("prison", prisoner.Place),
+                new XElement("relations", prisoner.Relations),
+                new XElement("article", prisoner.Article),
+                new XElement("character", prisoner.Character));
+            xDoc.Root.Add(xtmp);
             xDoc.Save(xPath);
         }
 
-        public static void readXML()
+        public static void fillDGV(ref DataGridView DGV)
         {
-            // обход всех узлов в корневом элементе
-            foreach (XmlNode xnode in xRoot)
+            DGV.RowCount = 0;
+            XDocument xdoc = XDocument.Load(xPath);
+            foreach (XElement phoneElement in xdoc.Element("prisoners").Elements("prisoner"))
             {
-                // получаем атрибут name
-                if (xnode.Attributes.Count > 0)
-                {
-                    XmlNode attr = xnode.Attributes.GetNamedItem("id");
-                    if (attr != null)
-                        Console.WriteLine(attr.Value);
-                }
-                // обходим все дочерние узлы элемента user
-                foreach (XmlNode childnode in xnode.ChildNodes)
-                {
-                    // если узел - company
-                    if (childnode.Name == "company")
-                    {
-                        Console.WriteLine("loh: {0}", childnode.InnerText);
-                    }
-                    // если узел age
-                    if (childnode.Name == "age")
-                    {
-                        Console.WriteLine("pidr: {0}", childnode.InnerText);
-                    }
-                }
-                Console.WriteLine();
+                DGV.Rows.Add(phoneElement.Attribute("id").Value, phoneElement.Element("name").Value,
+                    phoneElement.Element("surname").Value, phoneElement.Element("article").Value);
             }
         }
 
+        public static void printXML(ref RichTextBox rtb)
+        {
+            XDocument xdoc = XDocument.Load(xPath);
+            rtb.Text = "";
+            foreach (XElement phoneElement in xdoc.Element("prisoners").Elements("prisoner"))
+            {
+                string str = "";
+                str += dict[phoneElement.FirstAttribute.Name.ToString()] + ": " + phoneElement.FirstAttribute.Value + ";\n";
+                foreach (XElement elements in phoneElement.Elements())
+                    str += dict[elements.Name.ToString()] + ": " + elements.Value + ";\n";
+                rtb.Text += str + "\n";
+            }
+        } 
     }
 }
+
+
+
+
+
+/*
+public static void readXML(ref RichTextBox rtb)
+{
+   XDocument xdoc = XDocument.Load("data/prisoners2.xml");
+    var items = from xe in xdoc.Element("prisoners").Elements("prisoner")
+                where xe.Element("surname").Value == "Xela"
+                select new Prisoner
+                {
+                    Name = xe.Attribute("name").Value,
+                    Surname = xe.Element("surname").Value,
+                    Place = xe.Attribute("place").Value,
+                    Relations = xe.Element("relations").Value,
+                    Article = xe.Attribute("article").Value,
+                    Character = xe.Element("character").Value,
+                    ID = Convert.ToInt32(xe.Attribute("name").Value)
+                }
+
+    foreach (var item in items)
+        rtb.Text += item.Name + "-" + item.Surname;
+
+
+    xDoc = new XmlDocument();
+    xDoc.Load(xPath);
+    MessageBox.Show(xPath);
+    xRoot = xDoc.DocumentElement;
+
+    foreach (XmlNode xnode in xRoot)
+    {
+        if (xnode.Attributes.Count > 0)
+        {
+            XmlNode attr = xnode.Attributes.GetNamedItem("id");
+            if (attr != null)
+                Console.WriteLine(attr.Value);
+        }
+        foreach (XmlNode childnode in xnode.ChildNodes)
+        {
+            switch (childnode.Name)
+            {
+                case ("name"):
+                    {
+                        rtb.Text += "Name: " + childnode.InnerText;
+                        break;
+                    }
+                case ("surname"):
+                    {
+                        rtb.Text += "Surname: " + childnode.InnerText;
+                        break;
+                    }
+                case ("place"):
+                    {
+                        rtb.Text += "Prison: " + childnode.InnerText;
+                        break;
+                    }
+                case ("relations"):
+                    {
+                        rtb.Text += "Relations: " + childnode.InnerText;
+                        break;
+                    }
+                case ("article"):
+                    {
+                        rtb.Text += "Article: " + childnode.InnerText;
+                        break;
+                    }
+                case ("character"):
+                    {
+                        rtb.Text += "Character: " + childnode.InnerText;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            rtb.Text += "\n";
+        }
+        rtb.Text += "\n";
+    }
+}*/
