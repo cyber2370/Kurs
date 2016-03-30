@@ -12,14 +12,16 @@ namespace Kurs.Forms
 {
     public partial class PrisonerForm : Form
     {
+        private string id;
         private Classes.Prisoner pris;
         public PrisonerForm()
         {
             InitializeComponent();
         }
 
-        public void fillForm(Classes.Prisoner pris)
+        public void fillForm(Classes.Prisoner pris, string id)
         {
+            this.id = id;
             this.pris = pris;
             lblArticle.Text = pris.Article;
             lblCharacter.Text = pris.Character;
@@ -28,6 +30,16 @@ namespace Kurs.Forms
             lblPrisonCell.Text = "" + pris.PrisonCell;
             lblRelations.Text = pris.Relations;
             lblSurname.Text = pris.Surname;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            Classes.DataBase.deletePrisoner(id);
         }
     }
 }

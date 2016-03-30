@@ -35,6 +35,9 @@
             this.lblArticle = new System.Windows.Forms.Label();
             this.lblRelations = new System.Windows.Forms.Label();
             this.lblCharacter = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnChange = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblName
@@ -107,11 +110,46 @@
             this.lblCharacter.TabIndex = 6;
             this.lblCharacter.Text = "Character";
             // 
+            // btnClose
+            // 
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnClose.Location = new System.Drawing.Point(336, 321);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(107, 41);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Закрыть";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnChange
+            // 
+            this.btnChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnChange.Location = new System.Drawing.Point(223, 321);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(107, 41);
+            this.btnChange.TabIndex = 8;
+            this.btnChange.Text = "Изменить";
+            this.btnChange.UseVisualStyleBackColor = true;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnRemove.Location = new System.Drawing.Point(110, 321);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(107, 41);
+            this.btnRemove.TabIndex = 9;
+            this.btnRemove.Text = "Удалить";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // PrisonerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 374);
+            this.Controls.Add(this.btnRemove);
+            this.Controls.Add(this.btnChange);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblCharacter);
             this.Controls.Add(this.lblRelations);
             this.Controls.Add(this.lblArticle);
@@ -135,5 +173,8 @@
         private System.Windows.Forms.Label lblArticle;
         private System.Windows.Forms.Label lblRelations;
         private System.Windows.Forms.Label lblCharacter;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.Button btnRemove;
     }
 }
