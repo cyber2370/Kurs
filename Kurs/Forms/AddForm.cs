@@ -30,7 +30,7 @@ namespace Kurs.Forms
                 Surname = tbSurname.Text,
                 Article = tbState.Text,
                 Character = tbCharacter.Text,
-                Place = tbPrison.Text,
+                Prison = tbPrison.Text,
                 PrisonCell = Convert.ToInt32(nudCamera.Value),
                 Relations = tbRelations.Text
             });

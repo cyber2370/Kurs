@@ -11,8 +11,6 @@ namespace Kurs.Classes
 {
     static class DataBase
     {
-        private static XmlDocument xDoc;
-        private static XmlElement xRoot;
         public static string xPath = "data/prisoners2.xml";
         public static Dictionary<string, string> dict;
         
@@ -28,16 +26,40 @@ namespace Kurs.Classes
             dict.Add("character", "Особенности характера");
         }
 
-        public static void deletePrisoner(int id)
+        public static void deletePrisoner(string id)
         {
-            xDoc = new XmlDocument();
-            xDoc.Load(xPath);
-            xRoot = xDoc.DocumentElement;
 
-            XmlNode node = xRoot.SelectSingleNode("prisoner[@id='" + id.ToString() + "']");
-            if (node != null)
-                xRoot.RemoveChild(node);
+            XDocument xDoc = XDocument.Load(xPath);
+            foreach(XElement elem in xDoc.Element("prisoners").Elements("prisoner"))
+            {
+                if (elem.FirstAttribute.Value == id)
+                {
+                    elem.Remove();
+                    return;
+                }
+            }
             xDoc.Save(xPath);
+        }
+
+        public static Prisoner getPrisoner(string id)
+        {
+            Prisoner pris = new Prisoner();
+            XDocument xDoc = XDocument.Load(xPath);
+            foreach (XElement elem in xDoc.Element("prisoners").Elements("prisoner"))
+            {
+                if (elem.FirstAttribute.Value == id)
+                {
+                    pris.Name = elem.Element("name").Value;
+                    pris.Surname = elem.Element("surname").Value;
+                    pris.Prison = elem.Element("prison").Value;
+                    pris.PrisonCell = Convert.ToInt32(elem.Element("prisoncell").Value);
+                    pris.Relations = elem.Element("relations").Value;
+                    pris.Article = elem.Element("article").Value;
+                    pris.Character = elem.Element("character").Value;
+                    break;
+                }
+            }
+            return pris;
         }
 
         public static void addPrisoner(Prisoner prisoner)
@@ -47,7 +69,7 @@ namespace Kurs.Classes
                 new XAttribute("id", (Convert.ToInt32(xDoc.Root.Elements().Last().Attribute("id").Value) + 1).ToString()),
                 new XElement("name", prisoner.Name),
                 new XElement("surname", prisoner.Surname),
-                new XElement("prison", prisoner.Place),
+                new XElement("prison", prisoner.Prison),
                 new XElement("relations", prisoner.Relations),
                 new XElement("article", prisoner.Article),
                 new XElement("character", prisoner.Character));
