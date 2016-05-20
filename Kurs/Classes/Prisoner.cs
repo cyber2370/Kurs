@@ -11,23 +11,36 @@ namespace Kurs.Classes
      *    Анкетные данные заключенных, статья, срок, дата заключения под стражу,
      *    место в тюремной иерархии, камера, сведения о родственниках, особенности характера. 
      **/
+
+
+    /// <summary>
+    /// Действующие тюрьмы.
+    /// </summary>
+    public enum Prisons
+    {
+        БутырскаяТюрьма,
+        Кресты,
+        ЛефортовскаяТюрьма,
+        МатросскаяТюрьма,
+        BlackDolphin,
+        ВладимирскийЦентрал,
+        БелыйЛебедь
+    }
+
+    /// <summary>
+    /// Модель заключенного.
+    /// </summary>
     public class Prisoner
     {
-        string _name, _surname, _prison, _relations, _article, _character;
-        int _prisonCell;
-
-        public Prisoner()
-        {
-            _name = _surname = _prison = _relations = _article = _character = "";
-            _prisonCell = 0;
-        }
-
-        public string Name { get { return _name; } set { _name = value; } }
-        public string Surname { get { return _surname; } set { _surname = value; } }
-        public string Prison { get { return _prison; } set { _prison = value; } }
-        public string Relations { get { return _relations; } set { _relations = value; } }
-        public string Article { get { return _article; } set { _article = value; } }
-        public string Character { get { return _character; } set { _character = value; } }
-        public int PrisonCell { get { return _prisonCell; } set { _prisonCell = value; } }
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string MiddleName { get; set; }
+        public string СityOfBirth { get; set; }
+        public Prisons Prison { get; set; }
+        public int PrisonCell { get; set; }
+        public bool Family { get; set; }
+        public string AdditionalInfo { get; set; }
+        public int ImprisonmentCount { get; set; }
     }
 }
