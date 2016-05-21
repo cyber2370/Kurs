@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Kurs.Classes;
+using Kurs.Classes.Model;
 
 namespace Kurs.Views
 {
@@ -30,14 +31,8 @@ namespace Kurs.Views
 
         private void FillFields(Prisoner prisoner)
         {
-            firstNameLbl.Text = prisoner.FirstName;
-            secondNameLbl.Text = prisoner.SecondName;
-            middleNameLbl.Text = prisoner.MiddleName;
-            additLbl.Text = prisoner.AdditionalInfo;
-            cellLbl.Text = prisoner.PrisonCell.ToString();
-            countLbl.Text = prisoner.ImprisonmentCount.ToString();
-            prisonLbl.Text = prisoner.Prison.ToString();
-            familyLbl.Text = prisoner.Family.ToString();
+            
+
         }
 
         private void closeBTN_Click(object sender, EventArgs e)
@@ -47,7 +42,6 @@ namespace Kurs.Views
 
         private void deteleBtn_Click(object sender, EventArgs e)
         {
-            //PrisonerCollection.DeletePrisoner(_id);
             MessageBox.Show(@"Deleted successful");
             Close();
         }

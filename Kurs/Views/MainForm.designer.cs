@@ -28,16 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.summaryBtn = new System.Windows.Forms.Button();
             this.refreshBtn = new System.Windows.Forms.Button();
             this.addBtn = new System.Windows.Forms.Button();
             this.searchBtn = new System.Windows.Forms.Button();
             this.DGV = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.secondName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.middleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prisonerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.personalInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personalInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imprisonmentInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prisonerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personalInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // summaryBtn
@@ -48,7 +52,6 @@
             this.summaryBtn.TabIndex = 0;
             this.summaryBtn.Text = "Summary";
             this.summaryBtn.UseVisualStyleBackColor = true;
-            this.summaryBtn.Click += new System.EventHandler(this.summaryBtn_Click);
             // 
             // refreshBtn
             // 
@@ -58,7 +61,6 @@
             this.refreshBtn.TabIndex = 1;
             this.refreshBtn.Text = "Refresh";
             this.refreshBtn.UseVisualStyleBackColor = true;
-            this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
             // 
             // addBtn
             // 
@@ -85,13 +87,14 @@
             this.DGV.AllowUserToAddRows = false;
             this.DGV.AllowUserToDeleteRows = false;
             this.DGV.AllowUserToResizeColumns = false;
+            this.DGV.AutoGenerateColumns = false;
             this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.firstName,
-            this.secondName,
-            this.middleName});
+            this.idDataGridViewTextBoxColumn,
+            this.personalInfoDataGridViewTextBoxColumn,
+            this.imprisonmentInfoDataGridViewTextBoxColumn});
+            this.DGV.DataSource = this.prisonerBindingSource;
             this.DGV.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DGV.Location = new System.Drawing.Point(12, 86);
             this.DGV.MultiSelect = false;
@@ -103,33 +106,37 @@
             this.DGV.TabIndex = 4;
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             // 
-            // id
+            // prisonerBindingSource
             // 
-            this.id.DataPropertyName = "\"Id\"";
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
+            this.prisonerBindingSource.DataSource = typeof(Kurs.Classes.Model.Prisoner);
             // 
-            // firstName
+            // personalInfoBindingSource
             // 
-            this.firstName.DataPropertyName = "\"FirstName\"";
-            this.firstName.HeaderText = "First name";
-            this.firstName.Name = "firstName";
-            this.firstName.ReadOnly = true;
+            this.personalInfoBindingSource.DataSource = typeof(Kurs.Classes.Model.PersonalInfo);
             // 
-            // secondName
+            // idDataGridViewTextBoxColumn
             // 
-            this.secondName.DataPropertyName = "\"SecondName\"";
-            this.secondName.HeaderText = "Second name";
-            this.secondName.Name = "secondName";
-            this.secondName.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.FillWeight = 30.45685F;
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // middleName
+            // personalInfoDataGridViewTextBoxColumn
             // 
-            this.middleName.DataPropertyName = "\"MiddleName\"";
-            this.middleName.HeaderText = "Middle name";
-            this.middleName.Name = "middleName";
-            this.middleName.ReadOnly = true;
+            this.personalInfoDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
+            this.personalInfoDataGridViewTextBoxColumn.FillWeight = 134.7716F;
+            this.personalInfoDataGridViewTextBoxColumn.HeaderText = "Имя";
+            this.personalInfoDataGridViewTextBoxColumn.Name = "personalInfoDataGridViewTextBoxColumn";
+            this.personalInfoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // imprisonmentInfoDataGridViewTextBoxColumn
+            // 
+            this.imprisonmentInfoDataGridViewTextBoxColumn.DataPropertyName = "SecondName";
+            this.imprisonmentInfoDataGridViewTextBoxColumn.FillWeight = 134.7716F;
+            this.imprisonmentInfoDataGridViewTextBoxColumn.HeaderText = "Фамилия";
+            this.imprisonmentInfoDataGridViewTextBoxColumn.Name = "imprisonmentInfoDataGridViewTextBoxColumn";
+            this.imprisonmentInfoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -143,7 +150,10 @@
             this.Controls.Add(this.summaryBtn);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prisonerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personalInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -155,9 +165,10 @@
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.DataGridView DGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn firstName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn secondName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn middleName;
+        private System.Windows.Forms.BindingSource personalInfoBindingSource;
+        private System.Windows.Forms.BindingSource prisonerBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn personalInfoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn imprisonmentInfoDataGridViewTextBoxColumn;
     }
 }

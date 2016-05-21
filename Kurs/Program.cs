@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
+using Kurs.Classes;
+using Kurs.Classes.Model;
 using Kurs.Views;
 
 namespace Kurs
@@ -16,6 +19,7 @@ namespace Kurs
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

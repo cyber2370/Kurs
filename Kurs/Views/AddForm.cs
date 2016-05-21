@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Kurs.Classes;
+using Kurs.Classes.Model;
 
 namespace Kurs.Views
 {
@@ -18,19 +19,32 @@ namespace Kurs.Views
                 MessageBox.Show(@"Fill all fields, please!");
                 return;
             }
-
-            PrisonerCollection.AddPrisoner(new Prisoner()
+            var personalInf = new PersonalInfo()
             {
-                FirstName = firstNameTB.Text,
-                SecondName = secondNameTB.Text,
-                MiddleName = middleNameTB.Text,
-                Family = haveFamilyRB.Checked,
-                AdditionalInfo = additionalTB.Text,
-                PrisonCell = Convert.ToInt32(cellNUD.Value),
-                ImprisonmentCount = Convert.ToInt32(imprisonCountNUD.Value),
-                СityOfBirth = birthCityTB.Text,
-                Prison = (Prisons)Enum.Parse(typeof(Prisons), prisonCB.SelectedText, true)
-            });
+                FirstName = FirstNameTB.Text,
+                SecondName = SecondNameTB.Text,
+                MiddleName = MiddleNameTB.Text,
+                Birthday = birthdatDTP.Value,
+                FamilyStatus = (FamilyStatus)Enum.Parse(typeof(FamilyStatus), FamilyCB.Text, true),
+                СityOfBirth = CityBornTB.Text
+            };
+
+            var imprisInfo = new ImprisonmentInfo()
+            {
+                Prison = (Prisons) Enum.Parse(typeof(Prisons), prisonCB.SelectedItem.ToString(), true),
+                ImprisonmentCount = Convert.ToInt32(ImprCountNUD.Value),
+                PrisonCell = Convert.ToInt32(PrisCellNUD.Value),
+                JailedDate = JailedDTP.Value,
+                JailingYears = Convert.ToInt32(JailingTimeNUD.Value)
+            };
+
+            var prisoner = new Prisoner()
+            {
+                PersonalInfo = personalInf,
+                ImprisonmentInfo = imprisInfo
+            };
+
+            PrisonerCollection.AddPrisoner(prisoner);
             MessageBox.Show(@"Success!");
             Close();
         }
@@ -72,12 +86,6 @@ namespace Kurs.Views
                 if ((control is TextBox && ((TextBox)control).Text.Length == 0)
                     || (control is ComboBox && ((ComboBox)control).SelectedText.Length == 0))
                     return false;
-                if (control is GroupBox)
-                {
-                    var items = ((GroupBox)control).Controls;
-                    if (!(((CheckBox)items[0]).Checked || ((CheckBox)items[1]).Checked))
-                        return false;
-                }
 
             }
             return true;

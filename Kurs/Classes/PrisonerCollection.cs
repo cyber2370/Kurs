@@ -2,10 +2,12 @@
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Kurs.Classes.Model;
 
 namespace Kurs.Classes
 {
@@ -14,7 +16,7 @@ namespace Kurs.Classes
     /// </summary>
     public static class PrisonerCollection
     {
-        public static List<Prisoner> PrisonersList { get; private set; }
+        public static BindingList<Prisoner> PrisonersList { get; private set; }
 
 
         /// <summary>
@@ -22,17 +24,16 @@ namespace Kurs.Classes
         /// </summary>
         static PrisonerCollection()
         {
-            PrisonersList = new List<Prisoner>();
+            PrisonersList = new BindingList<Prisoner>();
 
-            //заполнение списка заключенных
-            LoadCollection();
+                LoadCollection();
         }
 
 
         /// <summary>
         /// Метод поиска объекта Prisoner по полю Id.
         /// </summary>
-        /// <param name="id">Идентификатор заключенного. Должен существовать заключенный с таким Id.</param>
+        /// <param name="id">Идентификатор заключенного. Должен существовать заключенный с таким ID.</param>
         /// <returns></returns>
         public static Prisoner GetPrisonerById(int id)
         {
@@ -40,17 +41,6 @@ namespace Kurs.Classes
             if(pris == null) 
                 throw new NullReferenceException($"Неверный идентификатор {id}");
             return pris;
-        }
-
-
-        /// <summary>
-        /// Метод получения наибольшего идентификатора заключенного.
-        /// </summary>
-        /// <returns>Возвращает идентификатор последнего заключенного или -1 при отсутствии заключенных.</returns>
-        private static int GetLastPrisonerId()
-        {
-            //return id of last prisoner or -1, if PrisonerList is empty
-            return PrisonersList.LastOrDefault()?.Id ?? -1;
         }
 
 
@@ -63,6 +53,7 @@ namespace Kurs.Classes
             PrisonersList.Remove(GetPrisonerById(id));
         }
 
+
         /// <summary>
         /// Метод добавления нового заключенного в коллекцию.
         /// </summary>
@@ -70,21 +61,31 @@ namespace Kurs.Classes
         public static void AddPrisoner(Prisoner prisoner)
         {
             var newId = GetLastPrisonerId();
-            prisoner.Id = newId != -1 ? newId : 1;
+            prisoner.Id = newId != -1 ? newId + 1 : 1;
             PrisonersList.Add(prisoner);
         }
 
 
         /// <summary>
         /// Метод замены заключенного. 
-        /// Заменяет заключенного с идентификатором, совпадающим с идентификатором принимаемого заключенного.
         /// </summary>
-        /// <param name="prisoner">Id должно содержать существующее значение!</param>
-        public static void ReplacePrisoner(Prisoner prisoner)
+        /// <param name="id">ID заменяемого заключенного.</param>
+        /// <param name="prisoner">Заключенный для замены.</param>
+        public static void ReplacePrisoner(int id, Prisoner prisoner)
         {
-            var replaceThis = GetPrisonerById(prisoner.Id);
-            PrisonersList.Insert(PrisonersList.IndexOf(replaceThis), prisoner);
-            PrisonersList.Remove(replaceThis);
+            var replaceThis = GetPrisonerById(id);
+            PrisonersList[PrisonersList.IndexOf(replaceThis)] = prisoner;
+        }
+
+
+        /// <summary>
+        /// Метод получения наибольшего идентификатора заключенного.
+        /// </summary>
+        /// <returns>Возвращает идентификатор последнего заключенного или -1 при отсутствии заключенных.</returns>
+        private static int GetLastPrisonerId()
+        {
+            //return id of last prisoner or -1, if PrisonerList is empty
+            return PrisonersList.LastOrDefault()?.Id ?? -1;
         }
 
 
@@ -105,22 +106,38 @@ namespace Kurs.Classes
             PrisonersList = InOutXml.GetCollectionFromFile();
         }
 
-        private static Prisoner GetPrisonerTest()
-        {
-            return new Prisoner()
-            {
-                Id = 1,
-                FirstName = "Kolya",
-                SecondName = "Tevoxin",
-                MiddleName = "Nikolaevich",
-                Prison = Prisons.BlackDolphin,
-                ImprisonmentCount = 4,
-                PrisonCell = 453,
-                Family = false,
-                СityOfBirth = "Kharkov",
-                AdditionalInfo = "Smth additional info"  
-            };
-        }
 
+        private static void FillXmlFile()
+        {
+            var list = new BindingList<Prisoner>();
+            for (var i = 0; i < 100; i++)
+            {
+                var persInf = new PersonalInfo()
+                {
+                    FirstName = "Имя " + i,
+                    SecondName = "Фамилия" + i,
+                    MiddleName = "Отчество " + i,
+                    Birthday = new DateTime(1978, 06, 13),
+                    FamilyStatus = FamilyStatus.Married,
+                    СityOfBirth = "Kiev"
+                };
+                var imprisonInf = new ImprisonmentInfo()
+                {
+                    Prison = Prisons.BlackDolphin,
+                    PrisonCell = 511,
+                    ImprisonmentCount = 123,
+                    JailingYears = 13,
+                    JailedDate = new DateTime(1994, 03, 13)
+                };
+
+                list.Add(new Prisoner()
+                {
+                    Id = i,
+                    ImprisonmentInfo = imprisonInf,
+                    PersonalInfo = persInf
+                });
+            }
+            InOutXml.SaveToFile(list);
+        }
     }
 }
