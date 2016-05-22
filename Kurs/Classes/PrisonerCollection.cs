@@ -1,12 +1,7 @@
 ﻿
 using System;
-using System.CodeDom;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Serialization;
 using Kurs.Classes.Model;
 
 namespace Kurs.Classes
@@ -24,8 +19,7 @@ namespace Kurs.Classes
         /// </summary>
         static PrisonerCollection()
         {
-            PrisonersList = new BindingList<Prisoner>();
-
+                PrisonersList = new BindingList<Prisoner>();
                 LoadCollection();
         }
 
@@ -107,6 +101,10 @@ namespace Kurs.Classes
         }
 
 
+
+        /// <summary>
+        /// Заполняет файл XML случайными данными.
+        /// </summary>
         private static void FillXmlFile()
         {
             var list = new BindingList<Prisoner>();

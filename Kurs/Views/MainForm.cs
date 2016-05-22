@@ -23,19 +23,20 @@ namespace Kurs.Views
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            var form = new AddForm();
+            var form = new PrisonerForm();
             form.ShowDialog();
         }
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
-            var form = new SearchForm();
-            form.ShowDialog();
+
         }
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var form = new ShowForm(Convert.ToInt32(DGV[0, e.RowIndex].Value));
+            if(e.RowIndex < 0) return;
+
+            var form = new PrisonerForm(Convert.ToInt32(DGV[0, e.RowIndex].Value), false);
             form.ShowDialog();
         }
 

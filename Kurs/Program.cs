@@ -1,8 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
-using Kurs.Classes;
-using Kurs.Classes.Model;
 using Kurs.Views;
 
 namespace Kurs

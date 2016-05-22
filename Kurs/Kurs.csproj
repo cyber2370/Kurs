@@ -79,11 +79,11 @@
     <Compile Include="Classes\Model\PersonalInfo.cs" />
     <Compile Include="Classes\Model\Prisoner.cs" />
     <Compile Include="Classes\PrisonerCollection.cs" />
-    <Compile Include="Views\AddForm.cs">
+    <Compile Include="Views\PrisonerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AddForm.designer.cs">
-      <DependentUpon>AddForm.cs</DependentUpon>
+    <Compile Include="Views\PrisonerForm.designer.cs">
+      <DependentUpon>PrisonerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
@@ -91,31 +91,13 @@
     <Compile Include="Views\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\SearchForm.designer.cs">
-      <DependentUpon>SearchForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ShowForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ShowForm.designer.cs">
-      <DependentUpon>ShowForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Views\AddForm.resx">
-      <DependentUpon>AddForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\PrisonerForm.resx">
+      <DependentUpon>PrisonerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SearchForm.resx">
-      <DependentUpon>SearchForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ShowForm.resx">
-      <DependentUpon>ShowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
