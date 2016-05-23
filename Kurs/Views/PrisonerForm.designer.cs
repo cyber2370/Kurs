@@ -34,7 +34,7 @@ namespace Kurs.Views
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PersInfoTabPage = new System.Windows.Forms.TabPage();
             this.CityBornTB = new System.Windows.Forms.TextBox();
-            this.birthdatDTP = new System.Windows.Forms.DateTimePicker();
+            this.birthdayDTP = new System.Windows.Forms.DateTimePicker();
             this.FamilyCB = new System.Windows.Forms.ComboBox();
             this.MiddleNameTB = new System.Windows.Forms.TextBox();
             this.SecondNameTB = new System.Windows.Forms.TextBox();
@@ -48,7 +48,7 @@ namespace Kurs.Views
             this.ImprisInfoTabPage = new System.Windows.Forms.TabPage();
             this.PrisCellNUD = new System.Windows.Forms.NumericUpDown();
             this.ImprCountNUD = new System.Windows.Forms.NumericUpDown();
-            this.JailingTimeNUD = new System.Windows.Forms.NumericUpDown();
+            this.JailingYearsNUD = new System.Windows.Forms.NumericUpDown();
             this.JailedDTP = new System.Windows.Forms.DateTimePicker();
             this.prisonCB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -59,12 +59,15 @@ namespace Kurs.Views
             this.label1 = new System.Windows.Forms.Label();
             this.deleteBtn = new System.Windows.Forms.Button();
             this.writableBtn = new System.Windows.Forms.Button();
+            this.JailingMonthsNUD = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.PersInfoTabPage.SuspendLayout();
             this.ImprisInfoTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PrisCellNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImprCountNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.JailingTimeNUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.JailingYearsNUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.JailingMonthsNUD)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelBtn
@@ -105,7 +108,7 @@ namespace Kurs.Views
             // PersInfoTabPage
             // 
             this.PersInfoTabPage.Controls.Add(this.CityBornTB);
-            this.PersInfoTabPage.Controls.Add(this.birthdatDTP);
+            this.PersInfoTabPage.Controls.Add(this.birthdayDTP);
             this.PersInfoTabPage.Controls.Add(this.FamilyCB);
             this.PersInfoTabPage.Controls.Add(this.MiddleNameTB);
             this.PersInfoTabPage.Controls.Add(this.SecondNameTB);
@@ -131,25 +134,25 @@ namespace Kurs.Views
             this.CityBornTB.Size = new System.Drawing.Size(121, 20);
             this.CityBornTB.TabIndex = 20;
             // 
-            // birthdatDTP
+            // birthdayDTP
             // 
-            this.birthdatDTP.Location = new System.Drawing.Point(294, 190);
-            this.birthdatDTP.Name = "birthdatDTP";
-            this.birthdatDTP.Size = new System.Drawing.Size(138, 20);
-            this.birthdatDTP.TabIndex = 19;
+            this.birthdayDTP.Location = new System.Drawing.Point(294, 190);
+            this.birthdayDTP.Name = "birthdayDTP";
+            this.birthdayDTP.Size = new System.Drawing.Size(138, 20);
+            this.birthdayDTP.TabIndex = 19;
             // 
             // FamilyCB
             // 
+            this.FamilyCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FamilyCB.FormattingEnabled = true;
             this.FamilyCB.Items.AddRange(new object[] {
             "Женат",
-            "В разводе",
-            "Не женат"});
+            "Не женат",
+            "В разводе"});
             this.FamilyCB.Location = new System.Drawing.Point(295, 44);
             this.FamilyCB.Name = "FamilyCB";
             this.FamilyCB.Size = new System.Drawing.Size(121, 21);
             this.FamilyCB.TabIndex = 15;
-            this.FamilyCB.Text = "--------------------------------------------------";
             // 
             // MiddleNameTB
             // 
@@ -235,9 +238,11 @@ namespace Kurs.Views
             // ImprisInfoTabPage
             // 
             this.ImprisInfoTabPage.AutoScroll = true;
+            this.ImprisInfoTabPage.Controls.Add(this.JailingMonthsNUD);
+            this.ImprisInfoTabPage.Controls.Add(this.label13);
             this.ImprisInfoTabPage.Controls.Add(this.PrisCellNUD);
             this.ImprisInfoTabPage.Controls.Add(this.ImprCountNUD);
-            this.ImprisInfoTabPage.Controls.Add(this.JailingTimeNUD);
+            this.ImprisInfoTabPage.Controls.Add(this.JailingYearsNUD);
             this.ImprisInfoTabPage.Controls.Add(this.JailedDTP);
             this.ImprisInfoTabPage.Controls.Add(this.prisonCB);
             this.ImprisInfoTabPage.Controls.Add(this.label6);
@@ -260,7 +265,7 @@ namespace Kurs.Views
             this.PrisCellNUD.Hexadecimal = true;
             this.PrisCellNUD.Location = new System.Drawing.Point(321, 46);
             this.PrisCellNUD.Maximum = new decimal(new int[] {
-            300,
+            2000,
             0,
             0,
             0});
@@ -292,28 +297,28 @@ namespace Kurs.Views
             0,
             0});
             // 
-            // JailingTimeNUD
+            // JailingYearsNUD
             // 
-            this.JailingTimeNUD.DecimalPlaces = 1;
-            this.JailingTimeNUD.Location = new System.Drawing.Point(30, 120);
-            this.JailingTimeNUD.Maximum = new decimal(new int[] {
+            this.JailingYearsNUD.Location = new System.Drawing.Point(30, 120);
+            this.JailingYearsNUD.Maximum = new decimal(new int[] {
             300,
             0,
             0,
             0});
-            this.JailingTimeNUD.Name = "JailingTimeNUD";
-            this.JailingTimeNUD.Size = new System.Drawing.Size(76, 20);
-            this.JailingTimeNUD.TabIndex = 8;
+            this.JailingYearsNUD.Name = "JailingYearsNUD";
+            this.JailingYearsNUD.Size = new System.Drawing.Size(47, 20);
+            this.JailingYearsNUD.TabIndex = 8;
             // 
             // JailedDTP
             // 
-            this.JailedDTP.Location = new System.Drawing.Point(30, 194);
+            this.JailedDTP.Location = new System.Drawing.Point(30, 208);
             this.JailedDTP.Name = "JailedDTP";
             this.JailedDTP.Size = new System.Drawing.Size(154, 20);
             this.JailedDTP.TabIndex = 7;
             // 
             // prisonCB
             // 
+            this.prisonCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.prisonCB.FormattingEnabled = true;
             this.prisonCB.Items.AddRange(new object[] {
             "БутырскаяТюрьма",
@@ -327,13 +332,12 @@ namespace Kurs.Views
             this.prisonCB.Name = "prisonCB";
             this.prisonCB.Size = new System.Drawing.Size(154, 21);
             this.prisonCB.TabIndex = 6;
-            this.prisonCB.Text = "--------------------------------------------------------";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(112, 117);
+            this.label6.Location = new System.Drawing.Point(83, 118);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 22);
             this.label6.TabIndex = 5;
@@ -373,7 +377,7 @@ namespace Kurs.Views
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(26, 169);
+            this.label2.Location = new System.Drawing.Point(26, 183);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(158, 22);
             this.label2.TabIndex = 1;
@@ -392,7 +396,7 @@ namespace Kurs.Views
             // deleteBtn
             // 
             this.deleteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.deleteBtn.Location = new System.Drawing.Point(49, 322);
+            this.deleteBtn.Location = new System.Drawing.Point(130, 322);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(119, 35);
             this.deleteBtn.TabIndex = 22;
@@ -403,12 +407,35 @@ namespace Kurs.Views
             // writableBtn
             // 
             this.writableBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.writableBtn.Location = new System.Drawing.Point(174, 322);
+            this.writableBtn.Location = new System.Drawing.Point(5, 322);
             this.writableBtn.Name = "writableBtn";
             this.writableBtn.Size = new System.Drawing.Size(119, 35);
             this.writableBtn.TabIndex = 23;
             this.writableBtn.Text = "Изменить";
             this.writableBtn.UseVisualStyleBackColor = true;
+            this.writableBtn.Click += new System.EventHandler(this.writableBtn_Click);
+            // 
+            // JailingMonthsNUD
+            // 
+            this.JailingMonthsNUD.Location = new System.Drawing.Point(30, 146);
+            this.JailingMonthsNUD.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.JailingMonthsNUD.Name = "JailingMonthsNUD";
+            this.JailingMonthsNUD.Size = new System.Drawing.Size(47, 20);
+            this.JailingMonthsNUD.TabIndex = 12;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(83, 144);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(95, 22);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "месяц(ев)";
             // 
             // PrisonerForm
             // 
@@ -432,7 +459,8 @@ namespace Kurs.Views
             this.ImprisInfoTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PrisCellNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImprCountNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.JailingTimeNUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.JailingYearsNUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.JailingMonthsNUD)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -458,15 +486,17 @@ namespace Kurs.Views
         private System.Windows.Forms.TextBox MiddleNameTB;
         private System.Windows.Forms.TextBox SecondNameTB;
         private System.Windows.Forms.TextBox FirstNameTB;
-        private System.Windows.Forms.DateTimePicker birthdatDTP;
+        private System.Windows.Forms.DateTimePicker birthdayDTP;
         private System.Windows.Forms.ComboBox FamilyCB;
         private System.Windows.Forms.TextBox CityBornTB;
         private System.Windows.Forms.NumericUpDown PrisCellNUD;
         private System.Windows.Forms.NumericUpDown ImprCountNUD;
-        private System.Windows.Forms.NumericUpDown JailingTimeNUD;
+        private System.Windows.Forms.NumericUpDown JailingYearsNUD;
         private System.Windows.Forms.DateTimePicker JailedDTP;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.Button writableBtn;
+        private System.Windows.Forms.NumericUpDown JailingMonthsNUD;
+        private System.Windows.Forms.Label label13;
     }
 }

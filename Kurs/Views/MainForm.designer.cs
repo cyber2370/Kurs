@@ -45,12 +45,12 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.заключенныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьВсехЗаключенныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.разработчикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.помощьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.отправитьОтзывToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьВсехЗаключенныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prisonerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.personalInfoBindingSource)).BeginInit();
@@ -175,13 +175,13 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             // 
             // заключенныеToolStripMenuItem
@@ -196,8 +196,14 @@
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.добавитьToolStripMenuItem.Text = "Добавить";
+            // 
+            // удалитьВсехЗаключенныхToolStripMenuItem
+            // 
+            this.удалитьВсехЗаключенныхToolStripMenuItem.Name = "удалитьВсехЗаключенныхToolStripMenuItem";
+            this.удалитьВсехЗаключенныхToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.удалитьВсехЗаключенныхToolStripMenuItem.Text = "Удалить всех";
             // 
             // помощьToolStripMenuItem
             // 
@@ -234,12 +240,6 @@
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
-            // удалитьВсехЗаключенныхToolStripMenuItem
-            // 
-            this.удалитьВсехЗаключенныхToolStripMenuItem.Name = "удалитьВсехЗаключенныхToolStripMenuItem";
-            this.удалитьВсехЗаключенныхToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.удалитьВсехЗаключенныхToolStripMenuItem.Text = "Удалить всех";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,6 +255,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочник начальника тюрьмы";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.prisonerBindingSource)).EndInit();

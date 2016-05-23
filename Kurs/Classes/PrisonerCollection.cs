@@ -68,6 +68,7 @@ namespace Kurs.Classes
         public static void ReplacePrisoner(int id, Prisoner prisoner)
         {
             var replaceThis = GetPrisonerById(id);
+            prisoner.Id = id;
             PrisonersList[PrisonersList.IndexOf(replaceThis)] = prisoner;
         }
 
@@ -98,44 +99,6 @@ namespace Kurs.Classes
         public static void LoadCollection()
         {
             PrisonersList = InOutXml.GetCollectionFromFile();
-        }
-
-
-
-        /// <summary>
-        /// Заполняет файл XML случайными данными.
-        /// </summary>
-        private static void FillXmlFile()
-        {
-            var list = new BindingList<Prisoner>();
-            for (var i = 0; i < 100; i++)
-            {
-                var persInf = new PersonalInfo()
-                {
-                    FirstName = "Имя " + i,
-                    SecondName = "Фамилия" + i,
-                    MiddleName = "Отчество " + i,
-                    Birthday = new DateTime(1978, 06, 13),
-                    FamilyStatus = FamilyStatus.Married,
-                    СityOfBirth = "Kiev"
-                };
-                var imprisonInf = new ImprisonmentInfo()
-                {
-                    Prison = Prisons.BlackDolphin,
-                    PrisonCell = 511,
-                    ImprisonmentCount = 123,
-                    JailingYears = 13,
-                    JailedDate = new DateTime(1994, 03, 13)
-                };
-
-                list.Add(new Prisoner()
-                {
-                    Id = i,
-                    ImprisonmentInfo = imprisonInf,
-                    PersonalInfo = persInf
-                });
-            }
-            InOutXml.SaveToFile(list);
         }
     }
 }

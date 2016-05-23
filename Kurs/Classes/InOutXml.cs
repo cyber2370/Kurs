@@ -23,7 +23,7 @@ namespace Kurs.Classes
         /// </summary>
         public static void SaveToFile(BindingList<Prisoner> list)
         {
-            using (var fs = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.Write))
+            using (var fs = new FileStream(_filePath, FileMode.OpenOrCreate))
             {
                 Formatter.Serialize(fs, list);
             }
@@ -35,7 +35,7 @@ namespace Kurs.Classes
         /// <returns>Возвращает список заключенных.</returns>
         public static BindingList<Prisoner> GetCollectionFromFile()
         {
-            using (var fs = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.Read))
+            using (var fs = new FileStream(_filePath, FileMode.OpenOrCreate))
             {
                 var list = (BindingList<Prisoner>) Formatter.Deserialize(fs);
                 return list;

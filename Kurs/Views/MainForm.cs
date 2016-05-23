@@ -46,5 +46,10 @@ namespace Kurs.Views
             var source = new BindingSource(bindingList, null);
             DGV.DataSource = source;
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PrisonerCollection.Save();
+        }
     }
 }

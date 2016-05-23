@@ -30,7 +30,7 @@ namespace Kurs.Classes.Model
         public int PrisonCell { get; set; }
         public DateTime JailedDate { get; set; }
        // public DateTime FreedomDate { get; private set; }
-        public double JailingYears { get; set; }
+        public int JailingMonths { get; set; }
         public int ImprisonmentCount { get; set; }
         /*
         int years = Convert.ToInt32(value);

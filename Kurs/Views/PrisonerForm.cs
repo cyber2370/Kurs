@@ -22,6 +22,7 @@ namespace Kurs.Views
             Text = @"Добавление заключенного";
             deleteBtn.Visible = false;
             writableBtn.Visible = false;
+            okBtn.Visible = false;
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace Kurs.Views
             InitializeComponent();
             if (prisonerId <= 0)
             {
-                MessageBox.Show("Sorry, but ID is wrong!");
+                MessageBox.Show(@"Sorry, but ID is wrong!");
                 Close();
             }
             var pris = PrisonerCollection.GetPrisonerById(prisonerId);
@@ -46,9 +47,46 @@ namespace Kurs.Views
             Text = (writable) ? @"Изменение заключенного" : "Просмотр заключенного";
             prisoner = pris;
 
+            FillFields();
             deleteBtn.Visible = true;
+            okBtn.Visible = writable;
             writableBtn.Visible = !writable;
             writableFields(writable);
+        }
+
+        private void FillFields()
+        {
+            var persControls = Controls["tabControl1"].Controls[0].Controls;
+            var imprisControls = Controls["tabControl1"].Controls[1].Controls;
+
+            persControls["FirstNameTB"].Text = prisoner.PersonalInfo.FirstName;
+            persControls["SecondNameTB"].Text = prisoner.PersonalInfo.SecondName;
+            persControls["MiddleNameTB"].Text = prisoner.PersonalInfo.MiddleName;
+            persControls["CityBornTB"].Text = prisoner.PersonalInfo.СityOfBirth;
+            ((DateTimePicker)persControls["birthdayDTP"]).Value = prisoner.PersonalInfo.Birthday;
+            var fam = prisoner.PersonalInfo.FamilyStatus.ToString();
+            int z = 0;
+            switch (fam)
+            {
+                case "married":
+                    z = 0;
+                    break;
+                case "notmarried":
+                    z = 1;
+                    break;
+                case "divorced":
+                    z = 2;
+                    break;
+            }
+            ((ComboBox)persControls["FamilyCB"]).SelectedIndex = z;
+
+            ((ComboBox)imprisControls["prisonCB"]).SelectedItem = prisoner.ImprisonmentInfo.Prison.ToString();
+            ((NumericUpDown)imprisControls["PrisCellNUD"]).Value = prisoner.ImprisonmentInfo.PrisonCell;
+            ((NumericUpDown)imprisControls["ImprCountNUD"]).Value = prisoner.ImprisonmentInfo.ImprisonmentCount;
+            ((NumericUpDown)imprisControls["JailingYearsNUD"]).Value = Convert.ToInt32(prisoner.ImprisonmentInfo.JailingMonths / 12);
+            ((NumericUpDown)imprisControls["JailingMonthsNUD"]).Value = prisoner.ImprisonmentInfo.JailingMonths % 12;
+            ((DateTimePicker)imprisControls["JailedDTP"]).Value = prisoner.ImprisonmentInfo.JailedDate;
+
         }
 
 
@@ -59,13 +97,26 @@ namespace Kurs.Views
         /// <param name="e"></param>
         private void okBtn_Click(object sender, EventArgs e)
         {
+            var str = "";
+            switch (FamilyCB.Text)
+            {
+                case "Женат":
+                    str = "married";
+                    break;
+                case "Не женат":
+                    str = "notmarried";
+                    break;
+                case "В разводе":
+                    str = "divorced";
+                    break;
+            } 
             var personalInf = new PersonalInfo()
             {
                 FirstName = FirstNameTB.Text,
                 SecondName = SecondNameTB.Text,
                 MiddleName = MiddleNameTB.Text,
-                Birthday = birthdatDTP.Value,
-                FamilyStatus = (FamilyStatus)Enum.Parse(typeof(FamilyStatus), FamilyCB.Text, true),
+                Birthday = birthdayDTP.Value,
+                FamilyStatus = (FamilyStatus)Enum.Parse(typeof(FamilyStatus), str, true),
                 СityOfBirth = CityBornTB.Text
             };
 
@@ -75,7 +126,7 @@ namespace Kurs.Views
                 ImprisonmentCount = Convert.ToInt32(ImprCountNUD.Value),
                 PrisonCell = Convert.ToInt32(PrisCellNUD.Value),
                 JailedDate = JailedDTP.Value,
-                JailingYears = Convert.ToInt32(JailingTimeNUD.Value)
+                JailingMonths = Convert.ToInt32(JailingYearsNUD.Value * 12 + JailingMonthsNUD.Value)
             };
 
             var prisoner = new Prisoner()
@@ -103,6 +154,10 @@ namespace Kurs.Views
         }
 
 
+        /// <summary>
+        /// Делает поля формы (не)доступными для записи.
+        /// </summary>
+        /// <param name="verif"></param>
         private void writableFields(bool verif)
         {
             WfHelper(Controls["tabControl1"].Controls[0].Controls, verif);
@@ -125,6 +180,7 @@ namespace Kurs.Views
                     ((ComboBox)c1).Enabled = verif;
         }
 
+
         /// <summary>
         /// Событие Click кнопки Удалить.
         /// </summary>
@@ -138,6 +194,19 @@ namespace Kurs.Views
             PrisonerCollection.RemovePrisoner(prisoner.Id);
             MessageBox.Show(@"Success");
             Close();
+        }
+
+
+        /// <summary>
+        /// Событие Click кнопки Изменить. Делает поля Enabled.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void writableBtn_Click(object sender, EventArgs e)
+        {
+            writableBtn.Visible = false;
+            okBtn.Visible = true;
+            writableFields(true);
         }
     }
 }
