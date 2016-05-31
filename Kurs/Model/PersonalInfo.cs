@@ -23,6 +23,5 @@ namespace Kurs.Classes.Model
         public DateTime Birthday { get; set; }
         public string СityOfBirth { get; set; }
         public FamilyStatus FamilyStatus { get; set; }
-        
     }
 }

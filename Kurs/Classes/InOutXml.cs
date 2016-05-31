@@ -23,7 +23,7 @@ namespace Kurs.Classes
         /// </summary>
         public static void SaveToFile(BindingList<Prisoner> list)
         {
-            using (var fs = new FileStream(_filePath, FileMode.OpenOrCreate))
+            using (var fs = new FileStream(_filePath, FileMode.CreateNew|FileMode.OpenOrCreate))
             {
                 Formatter.Serialize(fs, list);
             }

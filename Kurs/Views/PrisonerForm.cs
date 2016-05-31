@@ -22,7 +22,7 @@ namespace Kurs.Views
             Text = @"Добавление заключенного";
             deleteBtn.Visible = false;
             writableBtn.Visible = false;
-            okBtn.Visible = false;
+            okBtn.Visible = true;
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Kurs.Views
         /// <param name="control"></param>
         /// <param name="verif"></param>
         private void WfHelper(Control.ControlCollection control, bool verif)
-        { 
+        {
             foreach (var c1 in control)
                 if (c1 is TextBox)
                     ((TextBox)c1).Enabled = verif;
@@ -178,6 +178,8 @@ namespace Kurs.Views
                     ((NumericUpDown)c1).Enabled = verif;
                 else if (c1 is ComboBox)
                     ((ComboBox)c1).Enabled = verif;
+                else if (c1 is DateTimePicker)
+                    ((DateTimePicker)c1).Enabled = verif;
         }
 
 
