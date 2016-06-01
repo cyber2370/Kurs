@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kurs.Classes.Model
+namespace Kurs.Model
 {
     [Serializable]
     public enum FamilyStatus
     {
-        Married,
-        NotMarried,
-        Divorced
+        Неизвестно = 0,
+        Женат = 1,
+        НеЖенат = 2,
+        Разведен = 3
     }
 
     [Serializable]

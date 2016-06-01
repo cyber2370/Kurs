@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Kurs.Classes;
-using Kurs.Classes.Model;
+using Kurs.Model;
 
 namespace Kurs.Views
 {
@@ -32,11 +32,9 @@ namespace Kurs.Views
 
 
         /// <summary>
-        /// Событие Click кнопки Добавить. Открывает форму PrisonerForm для добавления.
+        /// Открывает форму для добавления заключенного.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void addBtn_Click(object sender, EventArgs e)
+        private void AddFormCall()
         {
             var form = new PrisonerForm();
             form.ShowDialog();
@@ -50,7 +48,8 @@ namespace Kurs.Views
         /// <param name="e"></param>
         private void searchBtn_Click(object sender, EventArgs e)
         {
-
+            var col = PrisonerCollection.Find(CreatePrisonerFromForm());
+            BindCollectionToDataGridView(col);
         }
 
 
@@ -116,6 +115,7 @@ namespace Kurs.Views
             form.ShowDialog();
         }
 
+
         /// <summary>
         /// Изменить заключенного (контекстное меню таблицы).
         /// </summary>
@@ -126,6 +126,7 @@ namespace Kurs.Views
             var form = new PrisonerForm(Convert.ToInt32(DGV[0, DGV.SelectedRows[0].Index].Value), true);
             form.ShowDialog();
         }
+
 
         /// <summary>
         /// Удалить заключенного заключенного (контекстное меню таблицы).
@@ -144,6 +145,66 @@ namespace Kurs.Views
         {
             var form = new PrisonerForm();
             form.ShowDialog();
+        }
+
+        private void разработчикиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"Программа разработана студентом группы ПИ-15-1 Черкасом Борисом.", "Справочник начальника тюрьмы." );
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"Програма дозволяє знайти ув'язнених, які задовольняють"
+            + "різним критеріям пошуку. Ув'язнених можна шукати за анкетними даними, статтею, "
+            + "датою взяття під варту, місцем в тюремній ієрархії, камерою, відомостями про родичів, " 
+            + "особливостями характеру. Є можливість додавати, видаляти та редагувати інформацію про ув'язнених, " 
+            + "робити звіт, а також зберігати оновлений перелік ув'язнених після редагування.", "Справочник начальника тюрьмы.");
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrisonerCollection.Save();
+        }
+
+
+        /// <summary>
+        /// Собирает данные поиска с формы в один объект.
+        /// </summary>
+        /// <returns></returns>
+        private Prisoner CreatePrisonerFromForm()
+        {
+            var persInfo = new PersonalInfo()
+            {
+                FirstName = FirstNameTB.Text,
+                SecondName = SecondNameTB.Text,
+                MiddleName = MiddleNameTB.Text,
+                Birthday = BirthdayDTP.Value,
+                СityOfBirth = CityBornTB.Text
+            };
+
+            var imprInfo = new ImprisonmentInfo()
+            {
+                JailedDate = JailedDTP.Value,
+                JailingMonths = Convert.ToInt32(JailingYearsNUD.Value) * 12 + Convert.ToInt32(JailingMonthsNUD.Value),
+                PrisonCell = Convert.ToInt32(PrisCellNUD.Value),
+                ImprisonmentCount = Convert.ToInt32(ImprCountNUD.Value),
+            };
+
+            return new Prisoner()
+            {
+                ImprisonmentInfo = imprInfo,
+                PersonalInfo = persInfo
+            };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FirstNameTB.Text = SecondNameTB.Text = MiddleNameTB.Text = CityBornTB.Text = "";
+            BirthdayDTP.Value = JailedDTP.Value = new DateTime(1800, 1, 1);
+            JailingYearsNUD.Value = ImprCountNUD.Value = JailingMonthsNUD.Value = PrisCellNUD.Value = 0;
+            FamilyCB.SelectedIndex = PrisonCB.SelectedIndex = 0;
+            
+            BindCollectionToDataGridView(PrisonerCollection.PrisonersList);
         }
     }
 }

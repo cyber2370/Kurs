@@ -1,8 +1,9 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Kurs.Classes.Model;
+using Kurs.Model;
 
 namespace Kurs.Classes
 {
@@ -11,6 +12,8 @@ namespace Kurs.Classes
     /// </summary>
     public static class PrisonerCollection
     {
+
+        public static bool IsChanged { get; set; }
         public static BindingList<Prisoner> PrisonersList { get; private set; }
 
 
@@ -54,8 +57,8 @@ namespace Kurs.Classes
         /// <param name="prisoner"></param>
         public static void AddPrisoner(Prisoner prisoner)
         {
-            var newId = GetLastPrisonerId();
-            prisoner.Id = newId != -1 ? newId + 1 : 1;
+            var newId = GetMaxPrisonerId();
+            prisoner.Id = (newId != -1) ? (newId + 1) : 1;
             PrisonersList.Add(prisoner);
         }
 
@@ -65,10 +68,9 @@ namespace Kurs.Classes
         /// </summary>
         /// <param name="id">ID заменяемого заключенного.</param>
         /// <param name="prisoner">Заключенный для замены.</param>
-        public static void ReplacePrisoner(int id, Prisoner prisoner)
+        public static void ReplacePrisoner(Prisoner prisoner)
         {
-            var replaceThis = GetPrisonerById(id);
-            prisoner.Id = id;
+            var replaceThis = GetPrisonerById(prisoner.Id);
             PrisonersList[PrisonersList.IndexOf(replaceThis)] = prisoner;
         }
 
@@ -77,19 +79,51 @@ namespace Kurs.Classes
         /// Метод получения наибольшего идентификатора заключенного.
         /// </summary>
         /// <returns>Возвращает идентификатор последнего заключенного или -1 при отсутствии заключенных.</returns>
-        private static int GetLastPrisonerId()
+        private static int GetMaxPrisonerId()
         {
-            //return id of last prisoner or -1, if PrisonerList is empty
-            return PrisonersList.LastOrDefault()?.Id ?? -1;
+            return (PrisonersList.Count > 0) ? PrisonersList.Max(x => x.Id) : 0;
         }
 
+        public static BindingList<Prisoner> Find(Prisoner prisoner)
+        {
+            var collection = new List<Prisoner>();
+            foreach (var z in PrisonersList)
+                collection.Add(z);
+
+            var prisPersInfo = prisoner.PersonalInfo;
+            var prisImprInfo = prisoner.ImprisonmentInfo;
+
+            collection.RemoveAll(x =>
+                !(x.PersonalInfo.FirstName.Contains(prisPersInfo.FirstName)
+                && x.PersonalInfo.SecondName.Contains(prisPersInfo.SecondName)
+                && x.PersonalInfo.MiddleName.Contains(prisPersInfo.MiddleName)
+                && x.PersonalInfo.СityOfBirth.Contains(prisPersInfo.СityOfBirth)
+              //&& (x.PersonalInfo.Birthday.Equals(prisPersInfo.Birthday))
+                && (prisPersInfo.FamilyStatus.ToString() == "Неизвестно" 
+                    || x.PersonalInfo.FamilyStatus.ToString().Contains(
+                    prisPersInfo.FamilyStatus.ToString()))
+              //&& x.ImprisonmentInfo.JailedDate.Equals(prisImprInfo.JailedDate)
+                && (prisImprInfo.JailingMonths == 0 
+                    || x.ImprisonmentInfo.JailingMonths.Equals(prisImprInfo.JailingMonths) 
+                && (prisImprInfo.ImprisonmentCount == 0
+                    || x.ImprisonmentInfo.ImprisonmentCount.Equals(prisImprInfo.ImprisonmentCount))
+                && (prisImprInfo.Prison.ToString() == "Неизвестно"
+                    || x.ImprisonmentInfo.Prison.ToString().Equals(prisImprInfo.Prison.ToString()))
+                && (prisImprInfo.Prison.ToString() == "Неизвестно"
+                    || x.ImprisonmentInfo.PrisonCell.Equals(prisImprInfo.ImprisonmentCount)))));
+
+            var res = new BindingList<Prisoner>();
+            foreach (var z in collection)
+                res.Add(z);
+            return res;
+        }
 
         /// <summary>
         /// Записывает изменения в файл. 
         /// </summary>
         public static void Save()
         {
-            InOutXml.SaveToFile(PrisonersList);
+            XmlSerializator.SaveToFile(PrisonersList);
         }
 
 
@@ -98,7 +132,8 @@ namespace Kurs.Classes
         /// </summary>
         public static void LoadCollection()
         {
-            PrisonersList = InOutXml.GetCollectionFromFile();
+            var col = XmlSerializator.GetCollectionFromFile();
+            PrisonersList = col ?? new BindingList<Prisoner>();
         }
     }
 }

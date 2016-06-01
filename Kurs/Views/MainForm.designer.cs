@@ -41,15 +41,16 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.заключенныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.просмотретьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьВсехЗаключенныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обобщенныеДанныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.разработчикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.помощьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.отправитьОтзывToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CityBornTB = new System.Windows.Forms.TextBox();
-            this.birthdayDTP = new System.Windows.Forms.DateTimePicker();
+            this.BirthdayDTP = new System.Windows.Forms.DateTimePicker();
             this.FamilyCB = new System.Windows.Forms.ComboBox();
             this.MiddleNameTB = new System.Windows.Forms.TextBox();
             this.SecondNameTB = new System.Windows.Forms.TextBox();
@@ -66,7 +67,7 @@
             this.ImprCountNUD = new System.Windows.Forms.NumericUpDown();
             this.JailingYearsNUD = new System.Windows.Forms.NumericUpDown();
             this.JailedDTP = new System.Windows.Forms.DateTimePicker();
-            this.prisonCB = new System.Windows.Forms.ComboBox();
+            this.PrisonCB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -75,9 +76,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.просмотретьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.personalInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imprisonmentInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -185,6 +183,7 @@
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
@@ -212,6 +211,24 @@
             this.добавитьToolStripMenuItem.Text = "Добавить";
             this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавитьToolStripMenuItem_Click);
             // 
+            // просмотретьToolStripMenuItem
+            // 
+            this.просмотретьToolStripMenuItem.Name = "просмотретьToolStripMenuItem";
+            this.просмотретьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.просмотретьToolStripMenuItem.Text = "Просмотреть";
+            // 
+            // изменитьToolStripMenuItem
+            // 
+            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.изменитьToolStripMenuItem.Text = "Изменить";
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            // 
             // удалитьВсехЗаключенныхToolStripMenuItem
             // 
             this.удалитьВсехЗаключенныхToolStripMenuItem.Name = "удалитьВсехЗаключенныхToolStripMenuItem";
@@ -228,8 +245,6 @@
             // 
             this.помощьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.разработчикиToolStripMenuItem,
-            this.помощьToolStripMenuItem1,
-            this.отправитьОтзывToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
             this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
             this.помощьToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
@@ -238,26 +253,16 @@
             // разработчикиToolStripMenuItem
             // 
             this.разработчикиToolStripMenuItem.Name = "разработчикиToolStripMenuItem";
-            this.разработчикиToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.разработчикиToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.разработчикиToolStripMenuItem.Text = "Разработчики";
-            // 
-            // помощьToolStripMenuItem1
-            // 
-            this.помощьToolStripMenuItem1.Name = "помощьToolStripMenuItem1";
-            this.помощьToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
-            this.помощьToolStripMenuItem1.Text = "Помощь";
-            // 
-            // отправитьОтзывToolStripMenuItem
-            // 
-            this.отправитьОтзывToolStripMenuItem.Name = "отправитьОтзывToolStripMenuItem";
-            this.отправитьОтзывToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.отправитьОтзывToolStripMenuItem.Text = "Отправить отзыв";
+            this.разработчикиToolStripMenuItem.Click += new System.EventHandler(this.разработчикиToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // CityBornTB
             // 
@@ -266,22 +271,23 @@
             this.CityBornTB.Size = new System.Drawing.Size(138, 20);
             this.CityBornTB.TabIndex = 32;
             // 
-            // birthdayDTP
+            // BirthdayDTP
             // 
-            this.birthdayDTP.Location = new System.Drawing.Point(213, 172);
-            this.birthdayDTP.Name = "birthdayDTP";
-            this.birthdayDTP.Size = new System.Drawing.Size(138, 20);
-            this.birthdayDTP.TabIndex = 31;
-            this.birthdayDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.BirthdayDTP.Location = new System.Drawing.Point(213, 172);
+            this.BirthdayDTP.Name = "BirthdayDTP";
+            this.BirthdayDTP.Size = new System.Drawing.Size(138, 20);
+            this.BirthdayDTP.TabIndex = 31;
+            this.BirthdayDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             // 
             // FamilyCB
             // 
             this.FamilyCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FamilyCB.FormattingEnabled = true;
             this.FamilyCB.Items.AddRange(new object[] {
+            "Неизвестно",
             "Женат",
-            "Не женат",
-            "В разводе"});
+            "Не Женат",
+            "Разведен"});
             this.FamilyCB.Location = new System.Drawing.Point(213, 245);
             this.FamilyCB.Name = "FamilyCB";
             this.FamilyCB.Size = new System.Drawing.Size(137, 21);
@@ -438,22 +444,22 @@
             this.JailedDTP.TabIndex = 40;
             this.JailedDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             // 
-            // prisonCB
+            // PrisonCB
             // 
-            this.prisonCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.prisonCB.FormattingEnabled = true;
-            this.prisonCB.Items.AddRange(new object[] {
-            "БутырскаяТюрьма",
+            this.PrisonCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PrisonCB.FormattingEnabled = true;
+            this.PrisonCB.Items.AddRange(new object[] {
+            "Неизвестно",
+            "Бутырская Тюрьма",
             "Кресты",
-            "ЛефортовскаяТюрьма",
-            "МатросскаяТюрьма",
-            "BlackDolphin",
-            "ВладимирскийЦентрал",
-            "БелыйЛебедь"});
-            this.prisonCB.Location = new System.Drawing.Point(622, 62);
-            this.prisonCB.Name = "prisonCB";
-            this.prisonCB.Size = new System.Drawing.Size(154, 21);
-            this.prisonCB.TabIndex = 39;
+            "Лефортовская Тюрьма",
+            "Матросская Тюрьма",
+            "Владимирский Централ",
+            "Белый Лебедь"});
+            this.PrisonCB.Location = new System.Drawing.Point(622, 62);
+            this.PrisonCB.Name = "PrisonCB";
+            this.PrisonCB.Size = new System.Drawing.Size(154, 21);
+            this.PrisonCB.TabIndex = 39;
             // 
             // label6
             // 
@@ -534,24 +540,7 @@
             this.button1.TabIndex = 47;
             this.button1.Text = "Сброс";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // изменитьToolStripMenuItem
-            // 
-            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.изменитьToolStripMenuItem.Text = "Изменить";
-            // 
-            // удалитьToolStripMenuItem
-            // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
-            // 
-            // просмотретьToolStripMenuItem
-            // 
-            this.просмотретьToolStripMenuItem.Name = "просмотретьToolStripMenuItem";
-            this.просмотретьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.просмотретьToolStripMenuItem.Text = "Просмотреть";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -579,7 +568,7 @@
             // 
             // prisonerBindingSource
             // 
-            this.prisonerBindingSource.DataSource = typeof(Kurs.Classes.Model.Prisoner);
+            this.prisonerBindingSource.DataSource = typeof(Kurs.Model.Prisoner);
             // 
             // MainForm
             // 
@@ -594,7 +583,7 @@
             this.Controls.Add(this.ImprCountNUD);
             this.Controls.Add(this.JailingYearsNUD);
             this.Controls.Add(this.JailedDTP);
-            this.Controls.Add(this.prisonCB);
+            this.Controls.Add(this.PrisonCB);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -602,7 +591,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CityBornTB);
-            this.Controls.Add(this.birthdayDTP);
+            this.Controls.Add(this.BirthdayDTP);
             this.Controls.Add(this.FamilyCB);
             this.Controls.Add(this.MiddleNameTB);
             this.Controls.Add(this.SecondNameTB);
@@ -616,6 +605,7 @@
             this.Controls.Add(this.DGV);
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -652,8 +642,6 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьВсехЗаключенныхToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem помощьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem разработчикиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem помощьToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem отправитьОтзывToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem обобщенныеДанныеToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -661,7 +649,7 @@
         private System.Windows.Forms.ToolStripMenuItem changeTMSI;
         private System.Windows.Forms.ToolStripMenuItem deleteTMSI;
         private System.Windows.Forms.TextBox CityBornTB;
-        private System.Windows.Forms.DateTimePicker birthdayDTP;
+        private System.Windows.Forms.DateTimePicker BirthdayDTP;
         private System.Windows.Forms.ComboBox FamilyCB;
         private System.Windows.Forms.TextBox MiddleNameTB;
         private System.Windows.Forms.TextBox SecondNameTB;
@@ -678,7 +666,7 @@
         private System.Windows.Forms.NumericUpDown ImprCountNUD;
         private System.Windows.Forms.NumericUpDown JailingYearsNUD;
         private System.Windows.Forms.DateTimePicker JailedDTP;
-        private System.Windows.Forms.ComboBox prisonCB;
+        private System.Windows.Forms.ComboBox PrisonCB;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

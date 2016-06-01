@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Kurs.Classes.Model;
+using Kurs.Model;
 
-namespace Kurs.Classes.Model
+namespace Kurs.Model
 {
     /*    Класс Заключенный
      *    Содержит:

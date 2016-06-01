@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kurs.Classes.Model
+namespace Kurs.Model
 {
 
 
@@ -14,13 +14,13 @@ namespace Kurs.Classes.Model
     [Serializable]
     public enum Prisons
     {
-        БутырскаяТюрьма,
-        Кресты,
-        ЛефортовскаяТюрьма,
-        МатросскаяТюрьма,
-        BlackDolphin,
-        ВладимирскийЦентрал,
-        БелыйЛебедь
+        Неизвестно = 0,
+        БутырскаяТюрьма = 1,
+        Кресты = 2,
+        ЛефортовскаяТюрьма = 3,
+        МатросскаяТюрьма = 4,
+        ВладимирскийЦентрал = 5,
+        БелыйЛебедь = 6
     }
 
     [Serializable]
@@ -29,19 +29,7 @@ namespace Kurs.Classes.Model
         public Prisons Prison { get; set; }
         public int PrisonCell { get; set; }
         public DateTime JailedDate { get; set; }
-       // public DateTime FreedomDate { get; private set; }
         public int JailingMonths { get; set; }
         public int ImprisonmentCount { get; set; }
-        /*
-        int years = Convert.ToInt32(value);
-        int months = Convert.ToInt32((value - years)*12);
-        int days = Convert.ToInt32(((value - years)*12 - months)*30);
-
-        FreedomDate = JailedDate;
-        FreedomDate = FreedomDate.AddYears(years);
-        FreedomDate = FreedomDate.AddMonths(months);
-        FreedomDate = FreedomDate.AddDays(days);
-        */
-
     }
 }

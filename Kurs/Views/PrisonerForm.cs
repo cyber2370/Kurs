@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Kurs.Classes;
-using Kurs.Classes.Model;
+using Kurs.Model;
 
 namespace Kurs.Views
 {
@@ -51,7 +51,7 @@ namespace Kurs.Views
             deleteBtn.Visible = true;
             okBtn.Visible = writable;
             writableBtn.Visible = !writable;
-            writableFields(writable);
+            WritableFields(writable);
         }
 
         private void FillFields()
@@ -63,29 +63,30 @@ namespace Kurs.Views
             persControls["SecondNameTB"].Text = prisoner.PersonalInfo.SecondName;
             persControls["MiddleNameTB"].Text = prisoner.PersonalInfo.MiddleName;
             persControls["CityBornTB"].Text = prisoner.PersonalInfo.СityOfBirth;
-            ((DateTimePicker)persControls["birthdayDTP"]).Value = prisoner.PersonalInfo.Birthday;
-            var fam = prisoner.PersonalInfo.FamilyStatus.ToString();
-            int z = 0;
-            switch (fam)
-            {
-                case "married":
-                    z = 0;
-                    break;
-                case "notmarried":
-                    z = 1;
-                    break;
-                case "divorced":
-                    z = 2;
-                    break;
-            }
-            ((ComboBox)persControls["FamilyCB"]).SelectedIndex = z;
 
-            ((ComboBox)imprisControls["prisonCB"]).SelectedItem = prisoner.ImprisonmentInfo.Prison.ToString();
-            ((NumericUpDown)imprisControls["PrisCellNUD"]).Value = prisoner.ImprisonmentInfo.PrisonCell;
-            ((NumericUpDown)imprisControls["ImprCountNUD"]).Value = prisoner.ImprisonmentInfo.ImprisonmentCount;
-            ((NumericUpDown)imprisControls["JailingYearsNUD"]).Value = Convert.ToInt32(prisoner.ImprisonmentInfo.JailingMonths / 12);
-            ((NumericUpDown)imprisControls["JailingMonthsNUD"]).Value = prisoner.ImprisonmentInfo.JailingMonths % 12;
-            ((DateTimePicker)imprisControls["JailedDTP"]).Value = prisoner.ImprisonmentInfo.JailedDate;
+            ((DateTimePicker)persControls["birthdayDTP"]).Value = 
+                prisoner.PersonalInfo.Birthday;
+
+            ((ComboBox) persControls["FamilyCB"]).SelectedIndex = GetFamilyIndexByValue(
+                prisoner.PersonalInfo.FamilyStatus.ToString());
+
+            ((ComboBox) imprisControls["prisonCB"]).SelectedIndex = GetPrisonIndexByValue(
+                prisoner.ImprisonmentInfo.Prison.ToString());
+
+            ((NumericUpDown) imprisControls["PrisCellNUD"]).Value =
+                prisoner.ImprisonmentInfo.PrisonCell;
+
+            ((NumericUpDown) imprisControls["ImprCountNUD"]).Value =
+                prisoner.ImprisonmentInfo.ImprisonmentCount;
+
+            ((NumericUpDown) imprisControls["JailingYearsNUD"]).Value =
+                Convert.ToInt32(prisoner.ImprisonmentInfo.JailingMonths/12);
+
+            ((NumericUpDown) imprisControls["JailingMonthsNUD"]).Value =
+                prisoner.ImprisonmentInfo.JailingMonths%12;
+
+            ((DateTimePicker)imprisControls["JailedDTP"]).Value = 
+                prisoner.ImprisonmentInfo.JailedDate;
 
         }
 
@@ -97,48 +98,40 @@ namespace Kurs.Views
         /// <param name="e"></param>
         private void okBtn_Click(object sender, EventArgs e)
         {
-            var str = "";
-            switch (FamilyCB.Text)
-            {
-                case "Женат":
-                    str = "married";
-                    break;
-                case "Не женат":
-                    str = "notmarried";
-                    break;
-                case "В разводе":
-                    str = "divorced";
-                    break;
-            } 
+
             var personalInf = new PersonalInfo()
             {
+                FamilyStatus = (FamilyStatus)Enum.Parse(typeof(FamilyStatus),
+                    GetFamilyValueByIndex(FamilyCB.SelectedIndex), true),
+
                 FirstName = FirstNameTB.Text,
                 SecondName = SecondNameTB.Text,
                 MiddleName = MiddleNameTB.Text,
                 Birthday = birthdayDTP.Value,
-                FamilyStatus = (FamilyStatus)Enum.Parse(typeof(FamilyStatus), str, true),
                 СityOfBirth = CityBornTB.Text
             };
 
             var imprisInfo = new ImprisonmentInfo()
             {
-                Prison = (Prisons) Enum.Parse(typeof(Prisons), prisonCB.SelectedItem.ToString(), true),
+                Prison = (Prisons) Enum.Parse(typeof(Prisons),
+                    GetPrisonValueByIndex(prisonCB.SelectedIndex), true),
+
                 ImprisonmentCount = Convert.ToInt32(ImprCountNUD.Value),
                 PrisonCell = Convert.ToInt32(PrisCellNUD.Value),
                 JailedDate = JailedDTP.Value,
-                JailingMonths = Convert.ToInt32(JailingYearsNUD.Value * 12 + JailingMonthsNUD.Value)
+                JailingMonths = Convert.ToInt32(JailingYearsNUD.Value*12 + JailingMonthsNUD.Value)
             };
 
             var prisoner = new Prisoner()
             {
+                Id = this.prisoner?.Id ?? 0,
                 PersonalInfo = personalInf,
                 ImprisonmentInfo = imprisInfo
             };
             if(this.prisoner == null)
                 PrisonerCollection.AddPrisoner(prisoner);
             else 
-                PrisonerCollection.ReplacePrisoner(this.prisoner.Id, prisoner);
-            MessageBox.Show(@"Success!");
+                PrisonerCollection.ReplacePrisoner(prisoner);
             Close();
         }
 
@@ -158,10 +151,10 @@ namespace Kurs.Views
         /// Делает поля формы (не)доступными для записи.
         /// </summary>
         /// <param name="verif"></param>
-        private void writableFields(bool verif)
+        private void WritableFields(bool verif)
         {
-            WfHelper(Controls["tabControl1"].Controls[0].Controls, verif);
-            WfHelper(Controls["tabControl1"].Controls[1].Controls, verif);
+            WritableFieldsHelper(Controls["tabControl1"].Controls[0].Controls, verif);
+            WritableFieldsHelper(Controls["tabControl1"].Controls[1].Controls, verif);
         }
 
         /// <summary>
@@ -169,7 +162,7 @@ namespace Kurs.Views
         /// </summary>
         /// <param name="control"></param>
         /// <param name="verif"></param>
-        private void WfHelper(Control.ControlCollection control, bool verif)
+        private void WritableFieldsHelper(Control.ControlCollection control, bool verif)
         {
             foreach (var c1 in control)
                 if (c1 is TextBox)
@@ -208,7 +201,82 @@ namespace Kurs.Views
         {
             writableBtn.Visible = false;
             okBtn.Visible = true;
-            writableFields(true);
+            WritableFields(true);
         }
+
+
+
+        private string GetFamilyValueByIndex(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    return "Женат";
+                case 2:
+                    return "НеЖенат";
+                case 3:
+                    return "Разведен";
+                default:
+                    return "Неизвестно";
+            }
+        }
+
+        private int GetFamilyIndexByValue(string value)
+        {
+            switch (value)
+            {
+                case "Женат":
+                    return 1;
+                case "НеЖенат":
+                    return 2;
+                case "Разведен":
+                    return 3;
+                default:
+                    return 0;
+            }
+        }
+
+        private string GetPrisonValueByIndex(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    return "БутырскаяТюрьма";
+                case 2:
+                    return "Кресты";
+                case 3:
+                    return "ЛефортовскаяТюрьма";
+                case 4:
+                    return "МатросскаяТюрьма";
+                case 5:
+                    return "ВладимирскийЦентрал";
+                case 6:
+                    return "БелыйЛебедь";
+                default:
+                    return "Неизвестно";
+            }
+        }
+
+        private int GetPrisonIndexByValue(string value)
+        {
+            switch (value)
+            {
+                case "БутырскаяТюрьма":
+                    return 1;
+                case "Кресты":
+                    return 2;
+                case "ЛефортовскаяТюрьма":
+                    return 3;
+                case "МатросскаяТюрьма":
+                    return 4;
+                case "ВладимирскийЦентрал":
+                    return 5;
+                case "БелыйЛебедь":
+                    return 6;
+                default:
+                    return 0;
+            }
+        }
+
     }
 }
