@@ -1,11 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Kurs.Model;
 
-namespace Kurs.Classes
+namespace Kurs.Model
 {
     /// <summary>
     /// Класс для работы со списком заключенными.
@@ -13,7 +10,7 @@ namespace Kurs.Classes
     public static class PrisonerCollection
     {
 
-        public static bool IsChanged { get; set; }
+        public static bool IsChanged { get; private set; }
         public static BindingList<Prisoner> PrisonersList { get; private set; }
 
 
@@ -22,21 +19,23 @@ namespace Kurs.Classes
         /// </summary>
         static PrisonerCollection()
         {
-                PrisonersList = new BindingList<Prisoner>();
-                LoadCollection();
+            PrisonersList = new BindingList<Prisoner>();
+            IsChanged = false;
+            LoadCollection();
         }
 
 
         /// <summary>
         /// Метод поиска объекта Prisoner по полю Id.
         /// </summary>
-        /// <param name="id">Идентификатор заключенного. Должен существовать заключенный с таким ID.</param>
+        /// <param name="id">Идентификатор заключенного.
+        /// Должен существовать заключенный с таким ID.</param>
         /// <returns></returns>
         public static Prisoner GetPrisonerById(int id)
         {
             var pris = PrisonersList.SingleOrDefault(x => x.Id == id);
-            if(pris == null) 
-                throw new NullReferenceException($"Неверный идентификатор {id}");
+            if (pris == null)
+                throw new NullReferenceException("Неверный идентификатор {id}");
             return pris;
         }
 
@@ -48,6 +47,7 @@ namespace Kurs.Classes
         public static void RemovePrisoner(int id)
         {
             PrisonersList.Remove(GetPrisonerById(id));
+            IsChanged = true;
         }
 
 
@@ -60,6 +60,7 @@ namespace Kurs.Classes
             var newId = GetMaxPrisonerId();
             prisoner.Id = (newId != -1) ? (newId + 1) : 1;
             PrisonersList.Add(prisoner);
+            IsChanged = true;
         }
 
 
@@ -72,51 +73,81 @@ namespace Kurs.Classes
         {
             var replaceThis = GetPrisonerById(prisoner.Id);
             PrisonersList[PrisonersList.IndexOf(replaceThis)] = prisoner;
+            IsChanged = true;
+        }
+
+
+        /// <summary>
+        /// Удаляет всех заключенных.
+        /// </summary>
+        public static void DeleteAllPrisoners()
+        {
+            PrisonersList = new BindingList<Prisoner>();
+            IsChanged = true;
         }
 
 
         /// <summary>
         /// Метод получения наибольшего идентификатора заключенного.
         /// </summary>
-        /// <returns>Возвращает идентификатор последнего заключенного или -1 при отсутствии заключенных.</returns>
+        /// <returns>Возвращает идентификатор последнего заключенного 
+        /// или -1 при отсутствии заключенных.</returns>
         private static int GetMaxPrisonerId()
         {
-            return (PrisonersList.Count > 0) ? PrisonersList.Max(x => x.Id) : 0;
+            return (PrisonersList.Count > 0)
+                ? PrisonersList.Max(x => x.Id) : 0;
         }
 
+        /// <summary>
+        /// Метод поиска по разным критериям. 
+        /// Фильтрует основную коллекцию по заполненным критериям в модели.
+        /// 
+        /// </summary>
+        /// <param name="prisoner"></param>
+        /// <returns></returns>
         public static BindingList<Prisoner> Find(Prisoner prisoner)
         {
-            var collection = new List<Prisoner>();
-            foreach (var z in PrisonersList)
-                collection.Add(z);
 
             var prisPersInfo = prisoner.PersonalInfo;
             var prisImprInfo = prisoner.ImprisonmentInfo;
 
-            collection.RemoveAll(x =>
-                !(x.PersonalInfo.FirstName.Contains(prisPersInfo.FirstName)
+            var collection = PrisonersList.Where(x =>
+                x.PersonalInfo.FirstName.Contains(prisPersInfo.FirstName)
                 && x.PersonalInfo.SecondName.Contains(prisPersInfo.SecondName)
                 && x.PersonalInfo.MiddleName.Contains(prisPersInfo.MiddleName)
                 && x.PersonalInfo.СityOfBirth.Contains(prisPersInfo.СityOfBirth)
-              //&& (x.PersonalInfo.Birthday.Equals(prisPersInfo.Birthday))
-                && (prisPersInfo.FamilyStatus.ToString() == "Неизвестно" 
-                    || x.PersonalInfo.FamilyStatus.ToString().Contains(
-                    prisPersInfo.FamilyStatus.ToString()))
-              //&& x.ImprisonmentInfo.JailedDate.Equals(prisImprInfo.JailedDate)
-                && (prisImprInfo.JailingMonths == 0 
-                    || x.ImprisonmentInfo.JailingMonths.Equals(prisImprInfo.JailingMonths) 
-                && (prisImprInfo.ImprisonmentCount == 0
-                    || x.ImprisonmentInfo.ImprisonmentCount.Equals(prisImprInfo.ImprisonmentCount))
-                && (prisImprInfo.Prison.ToString() == "Неизвестно"
-                    || x.ImprisonmentInfo.Prison.ToString().Equals(prisImprInfo.Prison.ToString()))
-                && (prisImprInfo.Prison.ToString() == "Неизвестно"
-                    || x.ImprisonmentInfo.PrisonCell.Equals(prisImprInfo.ImprisonmentCount)))));
 
-            var res = new BindingList<Prisoner>();
+                && (prisPersInfo.Birthday == new DateTime(1800, 1, 1)
+                    || x.PersonalInfo.Birthday.Equals(prisPersInfo.Birthday))
+
+                && (prisPersInfo.FamilyStatus == FamilyStatus.Unknown
+                    || x.PersonalInfo.FamilyStatus == prisPersInfo.FamilyStatus)
+
+                && (prisImprInfo.JailedDate == new DateTime(1800, 1, 1)
+                    || x.ImprisonmentInfo.JailedDate
+                            .Equals(prisImprInfo.JailedDate))
+
+                && (prisImprInfo.JailingMonths == 0
+                    || x.ImprisonmentInfo.JailingMonths ==
+                            prisImprInfo.JailingMonths)
+
+                && (prisImprInfo.ImprisonmentCount == 0
+                    || x.ImprisonmentInfo.ImprisonmentCount ==
+                            prisImprInfo.ImprisonmentCount)
+
+                && (prisImprInfo.Prison == Prisons.Unknown
+                    || x.ImprisonmentInfo.Prison == prisImprInfo.Prison)
+
+                && (prisImprInfo.PrisonCell == 0
+                    || x.ImprisonmentInfo.PrisonCell
+                                == prisImprInfo.PrisonCell));
+
+            var list = new BindingList<Prisoner>();
             foreach (var z in collection)
-                res.Add(z);
-            return res;
+                list.Add(z);
+            return list;
         }
+
 
         /// <summary>
         /// Записывает изменения в файл. 
@@ -124,6 +155,7 @@ namespace Kurs.Classes
         public static void Save()
         {
             XmlSerializator.SaveToFile(PrisonersList);
+            IsChanged = false;
         }
 
 
@@ -134,6 +166,19 @@ namespace Kurs.Classes
         {
             var col = XmlSerializator.GetCollectionFromFile();
             PrisonersList = col ?? new BindingList<Prisoner>();
+            IsChanged = false;
+        }
+
+
+        /// <summary>
+        /// Метод приводит строку к типу перечисления.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static T ConvertToEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
         }
     }
 }

@@ -74,11 +74,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\XmlSerializator.cs" />
+    <Compile Include="Model\XmlSerializator.cs" />
     <Compile Include="Model\ImprisonmentInfo.cs" />
     <Compile Include="Model\PersonalInfo.cs" />
     <Compile Include="Model\Prisoner.cs" />
-    <Compile Include="Classes\PrisonerCollection.cs" />
+    <Compile Include="Model\PrisonerCollection.cs" />
+    <Compile Include="Views\FormHelper.cs" />
     <Compile Include="Views\PrisonerForm.cs">
       <SubType>Form</SubType>
     </Compile>

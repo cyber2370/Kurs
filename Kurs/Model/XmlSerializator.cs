@@ -1,14 +1,11 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using Kurs.Model;
 
-namespace Kurs.Classes
+namespace Kurs.Model
 {
     /// <summary>
     /// Класс для работы с файлом XML.
@@ -78,30 +75,38 @@ namespace Kurs.Classes
 
 
         /// <summary>
-        /// Метод создает объект заключенного (Prisoner) из представления XML-объекта.
+        /// Метод создает объект заключенного (Prisoner)
+        /// из представления XML-объекта.
         /// </summary>
         /// <param name="pris"></param>
         /// <returns></returns>
         private static XElement SerializePrisoner(Prisoner pris)
         {
-            var persInfo = new XElement("PersonalInfo",
-                                new XElement("FirstName", pris.PersonalInfo.FirstName),
-                                new XElement("SecondName", pris.PersonalInfo.SecondName),
-                                new XElement("MiddleName", pris.PersonalInfo.MiddleName),
-                                new XElement("Birthday", pris.PersonalInfo.Birthday),
-                                new XElement("СityOfBirth", pris.PersonalInfo.СityOfBirth),
-                                new XElement("FamilyStatus", pris.PersonalInfo.FamilyStatus));
+            var persInfo =
+                new XElement("PersonalInfo",
+                    new XElement("FirstName", pris.PersonalInfo.FirstName),
+                    new XElement("SecondName", pris.PersonalInfo.SecondName),
+                    new XElement("MiddleName", pris.PersonalInfo.MiddleName),
+                    new XElement("Birthday", pris.PersonalInfo.Birthday),
+                    new XElement("СityOfBirth", pris.PersonalInfo.СityOfBirth),
+                    new XElement("FamilyStatus", pris.PersonalInfo.FamilyStatus));
 
-            var imprInfo = new XElement("ImprisonmentInfo",
-                new XElement("JailedDate", pris.ImprisonmentInfo.JailedDate),
-                new XElement("ImprisonmentCount", pris.ImprisonmentInfo.ImprisonmentCount),
-                new XElement("JailingMonths", pris.ImprisonmentInfo.JailingMonths),
-                new XElement("Prison", pris.ImprisonmentInfo.Prison),
-                new XElement("PrisonCell", pris.ImprisonmentInfo.PrisonCell));
+            var imprInfo =
+                new XElement("ImprisonmentInfo",
+                    new XElement("JailedDate",
+                                    pris.ImprisonmentInfo.JailedDate),
+                    new XElement("ImprisonmentCount",
+                                    pris.ImprisonmentInfo.ImprisonmentCount),
+                    new XElement("JailingMonths",
+                                    pris.ImprisonmentInfo.JailingMonths),
+                    new XElement("Prison",
+                                    pris.ImprisonmentInfo.Prison),
+                    new XElement("PrisonCell",
+                                    pris.ImprisonmentInfo.PrisonCell));
 
-            return new XElement("Prisoner", 
-                                new XAttribute("Id", pris.Id), 
-                                persInfo, 
+            return new XElement("Prisoner",
+                                new XAttribute("Id", pris.Id),
+                                persInfo,
                                 imprInfo);
         }
 
@@ -119,8 +124,10 @@ namespace Kurs.Classes
                 FirstName = xPersInfo.Element("FirstName").Value,
                 SecondName = xPersInfo.Element("SecondName").Value,
                 MiddleName = xPersInfo.Element("MiddleName").Value,
-                FamilyStatus = ConvertToEnum<FamilyStatus>(xPersInfo.Element("FamilyStatus").Value),
-                Birthday = Convert.ToDateTime(xPersInfo.Element("Birthday").Value),
+                FamilyStatus = PrisonerCollection.ConvertToEnum<FamilyStatus>
+                                    (xPersInfo.Element("FamilyStatus").Value),
+                Birthday = Convert.ToDateTime
+                                    (xPersInfo.Element("Birthday").Value),
                 СityOfBirth = xPersInfo.Element("СityOfBirth").Value
             };
 
@@ -128,11 +135,20 @@ namespace Kurs.Classes
             var xImprInfo = xPris.Element("ImprisonmentInfo");
             var imprInfo = new ImprisonmentInfo()
             {
-                JailedDate = Convert.ToDateTime(xImprInfo.Element("JailedDate").Value),
-                JailingMonths = Convert.ToInt32(xImprInfo.Element("JailingMonths").Value),
-                PrisonCell = Convert.ToInt32(xImprInfo.Element("PrisonCell").Value),
-                ImprisonmentCount = Convert.ToInt32(xImprInfo.Element("ImprisonmentCount").Value),
-                Prison = ConvertToEnum<Prisons>(xImprInfo.Element("Prison").Value)
+                JailedDate = Convert.ToDateTime
+                                    (xImprInfo.Element("JailedDate").Value),
+
+                JailingMonths = Convert.ToInt32
+                                    (xImprInfo.Element("JailingMonths").Value),
+
+                PrisonCell = Convert.ToInt32
+                                    (xImprInfo.Element("PrisonCell").Value),
+
+                ImprisonmentCount = Convert.ToInt32
+                                    (xImprInfo.Element("ImprisonmentCount").Value),
+
+                Prison = PrisonerCollection.ConvertToEnum<Prisons>
+                                    (xImprInfo.Element("Prison").Value)
             };
 
             return new Prisoner()
@@ -142,18 +158,5 @@ namespace Kurs.Classes
                 PersonalInfo = persInfo
             };
         }
-
-
-        /// <summary>
-        /// Метод приводит строку к типу перечисления.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static T ConvertToEnum<T>(string value)
-        {
-            return (T) Enum.Parse(typeof(T), value, true);
-        }
-
-}
+    }
 }

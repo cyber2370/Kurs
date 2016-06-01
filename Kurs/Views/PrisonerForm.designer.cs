@@ -140,16 +140,17 @@ namespace Kurs.Views
             this.birthdayDTP.Name = "birthdayDTP";
             this.birthdayDTP.Size = new System.Drawing.Size(138, 20);
             this.birthdayDTP.TabIndex = 19;
-            this.birthdayDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.birthdayDTP.Value = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             // 
             // FamilyCB
             // 
             this.FamilyCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FamilyCB.FormattingEnabled = true;
             this.FamilyCB.Items.AddRange(new object[] {
+            "Неизвестно",
             "Женат",
             "Не женат",
-            "В разводе"});
+            "Разведен"});
             this.FamilyCB.Location = new System.Drawing.Point(295, 44);
             this.FamilyCB.Name = "FamilyCB";
             this.FamilyCB.Size = new System.Drawing.Size(137, 21);
@@ -288,18 +289,13 @@ namespace Kurs.Views
             this.PrisCellNUD.Hexadecimal = true;
             this.PrisCellNUD.Location = new System.Drawing.Point(321, 46);
             this.PrisCellNUD.Maximum = new decimal(new int[] {
-            2000,
+            5000,
             0,
             0,
             0});
             this.PrisCellNUD.Name = "PrisCellNUD";
             this.PrisCellNUD.Size = new System.Drawing.Size(82, 20);
             this.PrisCellNUD.TabIndex = 10;
-            this.PrisCellNUD.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // ImprCountNUD
             // 
@@ -338,18 +334,18 @@ namespace Kurs.Views
             this.JailedDTP.Name = "JailedDTP";
             this.JailedDTP.Size = new System.Drawing.Size(154, 20);
             this.JailedDTP.TabIndex = 7;
-            this.JailedDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.JailedDTP.Value = new System.DateTime(2016, 6, 1, 0, 0, 0, 0);
             // 
             // prisonCB
             // 
             this.prisonCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.prisonCB.FormattingEnabled = true;
             this.prisonCB.Items.AddRange(new object[] {
+            "Неизвестно",
             "БутырскаяТюрьма",
             "Кресты",
             "ЛефортовскаяТюрьма",
             "МатросскаяТюрьма",
-            "BlackDolphin",
             "ВладимирскийЦентрал",
             "БелыйЛебедь"});
             this.prisonCB.Location = new System.Drawing.Point(30, 45);
@@ -451,6 +447,7 @@ namespace Kurs.Views
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.okBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "PrisonerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавление заключенного";

@@ -76,6 +76,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.MiddleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Prison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.personalInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imprisonmentInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,6 +94,7 @@
             // 
             // searchBtn
             // 
+            this.searchBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.searchBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.searchBtn.Location = new System.Drawing.Point(685, 281);
             this.searchBtn.Name = "searchBtn";
@@ -106,13 +109,18 @@
             this.DGV.AllowUserToAddRows = false;
             this.DGV.AllowUserToDeleteRows = false;
             this.DGV.AllowUserToResizeColumns = false;
+            this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV.AutoGenerateColumns = false;
             this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.personalInfoDataGridViewTextBoxColumn,
-            this.imprisonmentInfoDataGridViewTextBoxColumn});
+            this.imprisonmentInfoDataGridViewTextBoxColumn,
+            this.MiddleName,
+            this.Prison});
             this.DGV.ContextMenuStrip = this.contextMenuStrip1;
             this.DGV.DataSource = this.prisonerBindingSource;
             this.DGV.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -141,7 +149,6 @@
             this.showTMSI.Name = "showTMSI";
             this.showTMSI.Size = new System.Drawing.Size(148, 22);
             this.showTMSI.Text = "Просмотреть";
-            this.showTMSI.Click += new System.EventHandler(this.просмотретьToolStripMenuItem_Click);
             // 
             // changeTMSI
             // 
@@ -216,30 +223,35 @@
             this.просмотретьToolStripMenuItem.Name = "просмотретьToolStripMenuItem";
             this.просмотретьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.просмотретьToolStripMenuItem.Text = "Просмотреть";
+            this.просмотретьToolStripMenuItem.Click += new System.EventHandler(this.просмотретьToolStripMenuItem_Click_1);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
             this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
+            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
             this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // удалитьВсехЗаключенныхToolStripMenuItem
             // 
             this.удалитьВсехЗаключенныхToolStripMenuItem.Name = "удалитьВсехЗаключенныхToolStripMenuItem";
             this.удалитьВсехЗаключенныхToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.удалитьВсехЗаключенныхToolStripMenuItem.Text = "Удалить всех";
+            this.удалитьВсехЗаключенныхToolStripMenuItem.Click += new System.EventHandler(this.удалитьВсехЗаключенныхToolStripMenuItem_Click);
             // 
             // обобщенныеДанныеToolStripMenuItem
             // 
             this.обобщенныеДанныеToolStripMenuItem.Name = "обобщенныеДанныеToolStripMenuItem";
             this.обобщенныеДанныеToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.обобщенныеДанныеToolStripMenuItem.Text = "Обобщенная информация";
+            this.обобщенныеДанныеToolStripMenuItem.Click += new System.EventHandler(this.обобщенныеДанныеToolStripMenuItem_Click);
             // 
             // помощьToolStripMenuItem
             // 
@@ -266,6 +278,7 @@
             // 
             // CityBornTB
             // 
+            this.CityBornTB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.CityBornTB.Location = new System.Drawing.Point(213, 209);
             this.CityBornTB.Name = "CityBornTB";
             this.CityBornTB.Size = new System.Drawing.Size(138, 20);
@@ -273,14 +286,16 @@
             // 
             // BirthdayDTP
             // 
+            this.BirthdayDTP.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BirthdayDTP.Location = new System.Drawing.Point(213, 172);
             this.BirthdayDTP.Name = "BirthdayDTP";
             this.BirthdayDTP.Size = new System.Drawing.Size(138, 20);
             this.BirthdayDTP.TabIndex = 31;
-            this.BirthdayDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.BirthdayDTP.Value = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             // 
             // FamilyCB
             // 
+            this.FamilyCB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.FamilyCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FamilyCB.FormattingEnabled = true;
             this.FamilyCB.Items.AddRange(new object[] {
@@ -295,6 +310,7 @@
             // 
             // MiddleNameTB
             // 
+            this.MiddleNameTB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.MiddleNameTB.Location = new System.Drawing.Point(213, 139);
             this.MiddleNameTB.Name = "MiddleNameTB";
             this.MiddleNameTB.Size = new System.Drawing.Size(138, 20);
@@ -302,6 +318,7 @@
             // 
             // SecondNameTB
             // 
+            this.SecondNameTB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.SecondNameTB.Location = new System.Drawing.Point(213, 101);
             this.SecondNameTB.Name = "SecondNameTB";
             this.SecondNameTB.Size = new System.Drawing.Size(138, 20);
@@ -309,6 +326,7 @@
             // 
             // FirstNameTB
             // 
+            this.FirstNameTB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.FirstNameTB.Location = new System.Drawing.Point(213, 65);
             this.FirstNameTB.Name = "FirstNameTB";
             this.FirstNameTB.Size = new System.Drawing.Size(138, 20);
@@ -316,6 +334,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(12, 173);
@@ -326,6 +345,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.Location = new System.Drawing.Point(12, 244);
@@ -336,6 +356,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.Location = new System.Drawing.Point(12, 101);
@@ -346,6 +367,7 @@
             // 
             // label10
             // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label10.Location = new System.Drawing.Point(12, 209);
@@ -356,6 +378,7 @@
             // 
             // label11
             // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label11.Location = new System.Drawing.Point(12, 139);
@@ -366,6 +389,7 @@
             // 
             // label12
             // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label12.Location = new System.Drawing.Point(12, 65);
@@ -376,6 +400,7 @@
             // 
             // JailingMonthsNUD
             // 
+            this.JailingMonthsNUD.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.JailingMonthsNUD.Location = new System.Drawing.Point(622, 245);
             this.JailingMonthsNUD.Maximum = new decimal(new int[] {
             12,
@@ -388,6 +413,7 @@
             // 
             // label13
             // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label13.Location = new System.Drawing.Point(681, 242);
@@ -398,11 +424,12 @@
             // 
             // PrisCellNUD
             // 
+            this.PrisCellNUD.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.PrisCellNUD.DecimalPlaces = 1;
             this.PrisCellNUD.Hexadecimal = true;
             this.PrisCellNUD.Location = new System.Drawing.Point(694, 100);
             this.PrisCellNUD.Maximum = new decimal(new int[] {
-            2000,
+            5000,
             0,
             0,
             0});
@@ -412,6 +439,7 @@
             // 
             // ImprCountNUD
             // 
+            this.ImprCountNUD.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ImprCountNUD.DecimalPlaces = 1;
             this.ImprCountNUD.Hexadecimal = true;
             this.ImprCountNUD.Location = new System.Drawing.Point(694, 138);
@@ -426,6 +454,7 @@
             // 
             // JailingYearsNUD
             // 
+            this.JailingYearsNUD.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.JailingYearsNUD.Location = new System.Drawing.Point(622, 211);
             this.JailingYearsNUD.Maximum = new decimal(new int[] {
             300,
@@ -438,14 +467,16 @@
             // 
             // JailedDTP
             // 
+            this.JailedDTP.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.JailedDTP.Location = new System.Drawing.Point(622, 171);
             this.JailedDTP.Name = "JailedDTP";
             this.JailedDTP.Size = new System.Drawing.Size(154, 20);
             this.JailedDTP.TabIndex = 40;
-            this.JailedDTP.Value = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.JailedDTP.Value = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             // 
             // PrisonCB
             // 
+            this.PrisonCB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.PrisonCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PrisonCB.FormattingEnabled = true;
             this.PrisonCB.Items.AddRange(new object[] {
@@ -463,6 +494,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.Location = new System.Drawing.Point(683, 211);
@@ -473,6 +505,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(433, 211);
@@ -483,6 +516,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(433, 100);
@@ -493,6 +527,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(433, 136);
@@ -503,6 +538,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(433, 172);
@@ -513,6 +549,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(433, 62);
@@ -523,6 +560,7 @@
             // 
             // label14
             // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label14.Location = new System.Drawing.Point(311, 24);
@@ -533,6 +571,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(557, 281);
             this.button1.Name = "button1";
@@ -542,11 +581,29 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // MiddleName
+            // 
+            this.MiddleName.DataPropertyName = "MiddleName";
+            this.MiddleName.HeaderText = "Отчество";
+            this.MiddleName.MinimumWidth = 150;
+            this.MiddleName.Name = "MiddleName";
+            this.MiddleName.ReadOnly = true;
+            // 
+            // Prison
+            // 
+            this.Prison.DataPropertyName = "Prison";
+            this.Prison.FillWeight = 82.23203F;
+            this.Prison.HeaderText = "Тюрьма";
+            this.Prison.MinimumWidth = 150;
+            this.Prison.Name = "Prison";
+            this.Prison.ReadOnly = true;
+            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.FillWeight = 30.45685F;
+            this.idDataGridViewTextBoxColumn.FillWeight = 72.17101F;
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.MinimumWidth = 40;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -555,14 +612,16 @@
             this.personalInfoDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
             this.personalInfoDataGridViewTextBoxColumn.FillWeight = 134.7716F;
             this.personalInfoDataGridViewTextBoxColumn.HeaderText = "Имя";
+            this.personalInfoDataGridViewTextBoxColumn.MinimumWidth = 150;
             this.personalInfoDataGridViewTextBoxColumn.Name = "personalInfoDataGridViewTextBoxColumn";
             this.personalInfoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // imprisonmentInfoDataGridViewTextBoxColumn
             // 
             this.imprisonmentInfoDataGridViewTextBoxColumn.DataPropertyName = "SecondName";
-            this.imprisonmentInfoDataGridViewTextBoxColumn.FillWeight = 134.7716F;
+            this.imprisonmentInfoDataGridViewTextBoxColumn.FillWeight = 110.8254F;
             this.imprisonmentInfoDataGridViewTextBoxColumn.HeaderText = "Фамилия";
+            this.imprisonmentInfoDataGridViewTextBoxColumn.MinimumWidth = 150;
             this.imprisonmentInfoDataGridViewTextBoxColumn.Name = "imprisonmentInfoDataGridViewTextBoxColumn";
             this.imprisonmentInfoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -605,7 +664,7 @@
             this.Controls.Add(this.DGV);
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -630,9 +689,6 @@
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.DataGridView DGV;
         private System.Windows.Forms.BindingSource prisonerBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn personalInfoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn imprisonmentInfoDataGridViewTextBoxColumn;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
@@ -678,5 +734,10 @@
         private System.Windows.Forms.ToolStripMenuItem просмотретьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn personalInfoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn imprisonmentInfoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MiddleName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Prison;
     }
 }

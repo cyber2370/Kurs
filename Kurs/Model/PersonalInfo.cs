@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kurs.Model
 {
-    [Serializable]
     public enum FamilyStatus
     {
-        Неизвестно = 0,
-        Женат = 1,
-        НеЖенат = 2,
-        Разведен = 3
+        Unknown = 0,
+        Married = 1,
+        NotMarried = 2,
+        Divorced = 3
     }
 
-    [Serializable]
     public class PersonalInfo
     {
         public string FirstName { get; set; }
